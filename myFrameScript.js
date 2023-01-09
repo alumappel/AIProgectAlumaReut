@@ -6,8 +6,8 @@
     let model, webcam, ctx, labelContainer, maxPredictions;
 
     async function initFrame() {
-        const modelPath = "FrameModel3/model.json";
-        const metadataPath = "FrameModel3/metadata.json";
+        const modelPath = "FrameModel4/model.json";
+        const metadataPath = "FrameModel4/metadata.json";
 
         // load the model and metadata
         // Refer to tmImage.loadFromFiles() in the API to support files from a file picker

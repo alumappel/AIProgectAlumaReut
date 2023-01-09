@@ -1,0 +1,34 @@
+<head>
+    <!-- general google teachable script -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+
+    <!-- frame scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
+    <script src="myFrameScript.js"></script>
+
+
+    <!-- monotony scripts -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@0.4.0/dist/speech-commands.min.js"></script>
+    <script src="myMonotonyScript.js"></script>
+
+    <!-- volium chack script -->
+    <script src="vollumFromMDN.js"></script>
+
+</head>
+
+<body>
+    <h1>testing 2 models</div>
+    <button type="button" onclick="initFrame()">Start frame check</button>
+    <button type="button" onclick="initMonotony()">Start monotony check</button>
+    <button type="button" id="DBbutton">Start DB check</button>
+
+    <div id="webcam-container"></div>
+    <canvas id="canvas"></canvas>
+    <div id="label-container-frame"></div>
+    <div id="label-container-monotony"></div>
+    <meter id="volume-meter" value="0"  max="0.316"  high="0.177" low="0.03" optimum="0.1"></meter>
+<!-- ממיר דציבלים לאמפיליטודות    https://www.silisoftware.com/tools/db.php -->
+</body>
+
+

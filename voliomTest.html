@@ -1,0 +1,42 @@
+<p>Click <button id="startButton" onclick="volium()">Start measuring</button>,
+    and this meter will show your microphone volume level:
+    <meter id="volumeMeter" high="0.25" max="1" value="0"></meter>.
+    This demo uses the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API">Web Audio API</a>.
+    Here is the essential code:
+</p>
+
+<pre><code class="language-js">const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+        const audioContext = new AudioContext();
+        const mediaStreamAudioSourceNode = audioContext.createMediaStreamSource(stream);
+        const analyserNode = audioContext.createAnalyser();
+        mediaStreamAudioSourceNode.connect(analyserNode);
+        
+        const pcmData = new Float32Array(analyserNode.fftSize);
+        const onFrame = () =&gt; {
+            analyserNode.getFloatTimeDomainData(pcmData);
+            let sumSquares = 0.0;
+            for (const amplitude of pcmData) { sumSquares += amplitude*amplitude; }
+            volumeMeterEl.value = Math.sqrt(sumSquares / pcmData.length);
+            window.requestAnimationFrame(onFrame);
+        };
+        window.requestAnimationFrame(onFrame);
+        </code></pre>
+<script type="text/javascript">
+    async function volium() {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+        const audioContext = new AudioContext();
+        const mediaStreamAudioSourceNode = audioContext.createMediaStreamSource(stream);
+        const analyserNode = audioContext.createAnalyser();
+        mediaStreamAudioSourceNode.connect(analyserNode);
+
+        const pcmData = new Float32Array(analyserNode.fftSize);
+        const onFrame = () => {
+            analyserNode.getFloatTimeDomainData(pcmData);
+            let sumSquares = 0.0;
+            for (const amplitude of pcmData) { sumSquares += amplitude * amplitude; }  
+            volumeMeterEl.value = Math.sqrt(sumSquares / pcmData.length);
+            window.requestAniEl.value = mationFrame(onFrame);
+        };
+        window.requestAnimationFrame(onFrame);
+    }
+</script>

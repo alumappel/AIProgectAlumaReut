@@ -57,32 +57,25 @@ async function loop(timestamp) {
     //הכנסה למערך קבוע
     //איפוס מערך זמני
     if (performance.now() - startTime >= 30000) {
-        console.log("start loop");
         staticTempArry = tempArry;
         //console.log('staticTempArry'+staticTempArry);
         //console.log('tempArry'+tempArry);
         tempArry = new Array();
         let arrysNamesArry = [inFrameHalfMinAVGArry, outFrameHalfMinAVGArry, tooCloseHalfMinAVGArry, tooFarHalfMinAVGArry];
-
-
         for (let arryi = 0; arryi < arrysNamesArry.length; arryi++) {
-            console.log("start foreach");
             let sum = 0;
             let count = 0;
             for (let i = arryi; i < staticTempArry.length; i += 4) {
-                console.log("start for");
                 sum += parseFloat(staticTempArry[i]);
                 count++;
             }
             if (count > 0) {
-                console.log("start AVG");
                 arrysNamesArry[arryi].push(sum / count);                
             } else {
                 console.log("error in staticTempArry AVG")
-            }
-            
+            }            
         }
-        console.log("inFrameHalfMinAVGArry"+inFrameHalfMinAVGArry+"outFrameHalfMinAVGArry"+outFrameHalfMinAVGArry+"tooCloseHalfMinAVGArry"+tooCloseHalfMinAVGArry+"tooFarHalfMinAVGArry"+tooFarHalfMinAVGArry);
+        //console.log("inFrameHalfMinAVGArry"+inFrameHalfMinAVGArry+"outFrameHalfMinAVGArry"+outFrameHalfMinAVGArry+"tooCloseHalfMinAVGArry"+tooCloseHalfMinAVGArry+"tooFarHalfMinAVGArry"+tooFarHalfMinAVGArry);
         // Reset time
         startTime = performance.now();
     }

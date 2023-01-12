@@ -31,6 +31,11 @@ async function initFrame() {
     for (let i = 0; i < maxPredictions; i++) { // and class labels
         labelContainer.appendChild(document.createElement("div"));
     }
+
+
+    //חשיפה של האלמנטים
+    document.getElementById("video-col").classList.remove('d-none');
+    document.getElementById("colFrame").classList.remove('d-none');
 }
 
 

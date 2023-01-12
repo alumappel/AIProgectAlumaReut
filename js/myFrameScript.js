@@ -49,14 +49,13 @@ async function loop(timestamp) {
     webcam.update(); // update the webcam frame
     await predict();
     window.requestAnimationFrame(loop);
-
-
     //אם עברה חצי דקה
     //שמירת המערך במשתנה קבוע
     //חישוב מערך זמני
     //הכנסה למערך קבוע
     //איפוס מערך זמני
-    if (performance.now() - startTime >= 30000) {
+    //שונה מחצי דקה ל10 שניות
+    if (performance.now() - startTime >= 10000) {
         staticTempArry = tempArry;
         //console.log('staticTempArry'+staticTempArry);
         //console.log('tempArry'+tempArry);
@@ -70,22 +69,16 @@ async function loop(timestamp) {
                 count++;
             }
             if (count > 0) {
-                arrysNamesArry[arryi].push(sum / count);                
+                arrysNamesArry[arryi].push(sum / count);
             } else {
                 console.log("error in staticTempArry AVG")
-            }            
+            }
         }
         //console.log("inFrameHalfMinAVGArry"+inFrameHalfMinAVGArry+"outFrameHalfMinAVGArry"+outFrameHalfMinAVGArry+"tooCloseHalfMinAVGArry"+tooCloseHalfMinAVGArry+"tooFarHalfMinAVGArry"+tooFarHalfMinAVGArry);
         // Reset time
         startTime = performance.now();
+        updateVisualization();
     }
-
-
-
-
-
-
-
     //לחישוב כמות הפריימים
     //frameCount++;
     // If one second has passed
@@ -99,8 +92,6 @@ async function loop(timestamp) {
 
         console.log(`FPS: ${fps}`);
     } */
-
-
 }
 
 
@@ -119,17 +110,17 @@ async function predict() {
         const classPrediction =
             prediction[i].className + ": " + prediction[i].probability.toFixed(2);
         labelContainer.childNodes[i].innerHTML = classPrediction;
-      //הכנסת התחזית למערך זמני
+        //הכנסת התחזית למערך זמני
         tempArry.push(prediction[i].probability.toFixed(2));
         // console.log(prediction[0].probability.toFixed(2));
     }
-     // המספר של כל קלאס במערך
-       // 0 בפריים
-       // 1 לא בפריים
-       // 2 רחוק מדי
-       // 3 קרוב מדי
+    // המספר של כל קלאס במערך
+    // 0 בפריים
+    // 1 לא בפריים
+    // 2 רחוק מדי
+    // 3 קרוב מדי
 
-        
+
 
     //לחישוב הדילאי
     //const end = performance.now();
@@ -157,7 +148,64 @@ function drawPose(pose) {
 
 
 
+//יצירת משוב מיידי
+async function updateVisualization() {
+    //בדוק את החצי דקה האחרונה
+    //אם ___ מעל 0.8 תציג משוב מתאים
+    let span = document.getElementById("ansFrameTxt");
+    const box = document.getElementById("ansFrame");
+    if (inFrameHalfMinAVGArry[inFrameHalfMinAVGArry.length - 1] >= 0.8) {
+        //הודעה חיובית
+        console.log("מעולה");
+        span.innerHTML = "מעולה!";
+
+        if (box.classList.contains('feedbackbad')) {
+            box.classList.remove('feedbackbad');
+        }
+        if (box.classList.contains('feedbackgood') == false) {
+            box.classList.add('feedbackgood');
+        }
+
+    }
+    else if (tooCloseHalfMinAVGArry[tooCloseHalfMinAVGArry.length - 1] >= 0.8) {
+        //הודעה קרוב מדי
+        console.log("קרוב");
+       span.innerHTML = "כדאי להתרחק מהמלצמה";
 
 
+        if (box.classList.contains('feedbackgood')) {
+            box.classList.remove('feedbackgood');
+        }
+        if (box.classList.contains('feedbackbad') == false) {
+            box.classList.add('feedbackbad');
+        }
+    }
+    else if (tooFarHalfMinAVGArry[tooFarHalfMinAVGArry.length - 1] >= 0.8) {
+        //הודעה רחוק מדי
+        console.log("רחוק");
+        span.innerHTML = " כדאי להתקרב למצלמה";
+
+
+        if (box.classList.contains('feedbackgood')) {
+            box.classList.remove('feedbackgood');
+        }
+        if (box.classList.contains('feedbackbad') == false) {
+            box.classList.add('feedbackbad');
+        }
+    }
+    else {
+        //הודעה שלילית גנרית
+        console.log("רע");
+        span.innerHTML = "מיקום לא מושלם - נסי לזוז קצת";
+
+        if (box.classList.contains('feedbackgood')) {
+            box.classList.remove('feedbackgood');
+        }
+        if (box.classList.contains('feedbackbad') == false) {
+            box.classList.add('feedbackbad');
+        }
+    }
+
+}
 
 

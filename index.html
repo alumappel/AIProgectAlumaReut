@@ -8,6 +8,9 @@
     <meta name="theme-color" content="#549D9D" />
     <title>מערכת למישוב פרזנטציות מקוונות</title>
 
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
 
     <!-- general google teachable script -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
@@ -46,53 +49,63 @@
                         דיבור מונוטוני, וזיהוי מיקום מיטבי בפריים.<br> לתחילת אבחון מוזמנים ללחוץ על הכפתורים שתרצו
                         לאבחן, ניתן לאבחן את כל המדדים במקביל או מדדים אחדים לפי בחירתכם.
                     </p>
-                    <div class="row">
-                        <div class="col">
-                            <button class="btn btn-primary" type="button" id="DBbutton">בדיקת ווליום</button>
+                    <div class="row justify-content-start">
+                        <div class="col col-3">
+                            <button class="btn btn btn-outline-dark w-100" type="button" id="DBbutton">בדיקת ווליום</button>
                         </div>
-                        <div class="col">
-                            <button class="btn btn-primary" type="button" onclick="initMonotony()">בדיקת דיבור
+                        <div class="col col-3">
+                            <button class="btn btn-outline-dark w-100" type="button" onclick="initMonotony()">בדיקת דיבור
                                 מונוטוני</button>
                         </div>
-                        <div class="col">
-                            <button class="btn btn-primary" type="button" onclick="initFrame()">בדיקת מיקום
+                        <div class="col col-3">
+                            <button class="btn btn-outline-dark w-100" type="button" onclick="initFrame()">בדיקת מיקום
                                 בפריים</button>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
-                        <div id="webcam-container"></div>
-                        <canvas id="canvas"></canvas>
-                    </div>
-                    <p id="ansStartTxt" class="d-none">
-                        כל הכבוד! <br>
-                        הפרזנטציה ערכה
-                        <span id="totalTime"></span>
-                        דקות בואו נראה איך היו הביצועים שלך. <br>
-                        הגרפים מציגים באחוזים מהזמן הכולל של הפרזנטציה.
-                    </p>
-                    <div class="row">
-                        <div id="colVol" class="col d-none">
+
+
+                    <div class="row justify-content-between">
+                        <div id="colVol" class="col  greycol">
                             <h2>ווליום</h2>
-                            <div id="ansVol" class="AnsBox">
+                            <div id="ansVol" class="d-flex justify-content-center align-items-center feedbacksqwer">
+                                <div id="ansVolTxt" class="ansdisng"> מחכה לנתונים</div>
 
                             </div>
-
                         </div>
-                        <div id="colMon" class="col d-none">
+                        <div id="colMon" class="col ">
                             <h2>דיבור מונוטוני</h2>
-                            <div id="ansMon" class="AnsBox">
+                            <div id="ansMon" class="d-flex justify-content-center align-items-center feedbacksqwer">
+                                <div id="ansMonTxt" class="ansdisng"> מחכה לנתונים</div>
 
                             </div>
                         </div>
-                        <div id="colFrame" class="col d-none">
-                            <h2>מיקום נכון בפריים</h2>
-                            <div id="ansFrame" class="AnsBox">
+                        <div id="colFrame" class="col  greycol" >
+                            <h2>מיקום בפריים</h2>
+                            <div id="ansFrame" class="d-flex justify-content-center align-items-center feedbacksqwer">
+                                <div id="ansFrameTxt" class="ansdisng"> מחכה לנתונים</div>
 
                             </div>
+                        </div>
+
+
+
+                        <div class="col col-3">
+                            <div id="video" class="videoh">
+                                <div id="webcam-container" class="videoh"></div>
+                                <canvas id="canvas" class="w-100 videoh" style="background-color: rgb(212, 212, 211);"></canvas>
+                            </div>
+                            <p id="ansStartTxt" class="d-none">
+                                כל הכבוד! <br>
+                                הפרזנטציה ערכה
+                                <span id="totalTime"></span>
+                                דקות בואו נראה איך היו הביצועים שלך. <br>
+                                הגרפים מציגים באחוזים מהזמן הכולל של הפרזנטציה.
+                            </p>
                         </div>
                     </div>
+
                     <div class="row justify-content-center">
-                        <button class="btn btn-primary" type="button">סיום</button>
+                        <button class="btn btn-dark btn-lg btn-block" type="button">סיום</button>
                     </div>
                 </div>
             </div>
@@ -130,8 +143,8 @@
 
         <div id="webcam-container"></div>
         <canvas id="canvas"></canvas> -->
-        <div id="label-container-frame"></div>
-        <div id="label-container-monotony"></div>
-        <meter id="volume-meter" value="0" max="0.316" high="0.177" low="0.03" optimum="0.1"></meter>
-        <!-- ממיר דציבלים לאמפיליטודות    https://www.silisoftware.com/tools/db.php -->
+    <div id="label-container-frame"></div>
+    <div id="label-container-monotony"></div>
+    <meter id="volume-meter" value="0" max="0.316" high="0.177" low="0.03" optimum="0.1"></meter>
+    <!-- ממיר דציבלים לאמפיליטודות    https://www.silisoftware.com/tools/db.php -->
 </body>

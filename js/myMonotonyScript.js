@@ -83,7 +83,7 @@ async function initMonotony() {
                 console.log("error in staticTempArryM AVG")
             }
         }
-        updateVisualization();
+        updateVisualizationM();
     }, 10000);
 
 
@@ -93,12 +93,12 @@ async function initMonotony() {
 
 
 //יצירת משוב מיידי
-async function updateVisualization() {
+async function updateVisualizationM() {
     //בדוק את החצי דקה האחרונה
     //אם ___ מעל 0.8 תציג משוב מתאים
     let span = document.getElementById("ansMonTxt");
     const box = document.getElementById("ansMon");
-    if (VarietyTenSecAVGArry[VarietyTenSecAVGArry.length - 1] >= 0.8) {
+    if (VarietyTenSecAVGArry.length - 1 >= 0.8) {
         //הודעה חיובית
         console.log("מעולה");
         span.innerHTML = "מעולה!";

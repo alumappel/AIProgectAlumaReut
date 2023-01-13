@@ -1,15 +1,16 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-
 });
 
 
-
+//משתנים לחישוב
 let tempArryV = new Array();
 let staticTempArryV = new Array();
 let volTenSecAVGArry = new Array();
 
-
-
+//לעצירה
+let isRunning = true;
+let animationId;
+let intervalId;
 
 async function startDB() {
   const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
@@ -24,6 +25,10 @@ async function startDB() {
   document.getElementById("colVol").classList.remove('d-none');
 
   const onFrame = () => {
+    if (!isRunning) {
+      window.cancelAnimationFrame(animationId);
+      return;
+    }
     analyserNode.getFloatTimeDomainData(pcmData);
     let sumSquares = 0.0;
     for (const amplitude of pcmData) { sumSquares += amplitude * amplitude; }
@@ -33,16 +38,11 @@ async function startDB() {
 
     window.requestAnimationFrame(onFrame);
   };
-  window.requestAnimationFrame(onFrame);
-  //console.log("after" + volumeMeterEl.value);
-  // console.log(volumeMeterEl.value);
-  // console.log(volumeMeterEl.value);
-
+  animationId = window.requestAnimationFrame(onFrame);
 
 
   //פונקציה שקוראת כל 10 שניות
   const everyTenSeconds = () => {
-    //console.log("ten seconds");
     staticTempArryV = tempArryM;
     tempArryV = new Array();
     let sum = 0;
@@ -55,28 +55,23 @@ async function startDB() {
       volTenSecAVGArry.push(sum / count);
     } else {
       console.log("error in staticTempArryM AVG")
-    }
-    //console.log(volTenSecAVGArry);
-
+    }    
     updateVisualizationV();
   };
-  setInterval(everyTenSeconds, 10000);
+  intervalId= setInterval(everyTenSeconds, 10000);
 }
-
 
 
 
 //יצירת משוב מיידי
 async function updateVisualizationV() {
-  //בדוק את החצי דקה האחרונה
-  //אם ___ מעל 0.8 תציג משוב מתאים
+  //בדוק את החצי דקה האחרונה  //אם ___ מעל 0.8 תציג משוב מתאים
   let span = document.getElementById("ansVolTxt");
   const box = document.getElementById("ansVol");
   if (volTenSecAVGArry[volTenSecAVGArry.length - 1] <= 0.032) {
     //חלש
     console.log("חלש");
     span.innerHTML = "הדיבור שלך חלש מדי - נסי להגביר";
-
 
     if (box.classList.contains('feedbackgood')) {
       box.classList.remove('feedbackgood');
@@ -90,7 +85,6 @@ async function updateVisualizationV() {
     console.log("חזק");
     span.innerHTML = "הדיבור שלך חזק מדי - נסי להחליש";
 
-
     if (box.classList.contains('feedbackgood')) {
       box.classList.remove('feedbackgood');
     }
@@ -98,8 +92,6 @@ async function updateVisualizationV() {
       box.classList.add('feedbackbad');
     }
   }
-
-
   else {
     //הודעה חיובית
     console.log("מעולה");
@@ -111,9 +103,13 @@ async function updateVisualizationV() {
     if (box.classList.contains('feedbackgood') == false) {
       box.classList.add('feedbackgood');
     }
-
   }
 
+}
 
 
+
+function stopLoopV() {
+  isRunning = false;
+  clearInterval(intervalId);
 }

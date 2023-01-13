@@ -32,38 +32,32 @@ async function initFrame() {
         labelContainer.appendChild(document.createElement("div"));
     }
 
-
     //חשיפה של האלמנטים
     document.getElementById("video-col").classList.remove('d-none');
     document.getElementById("colFrame").classList.remove('d-none');
 }
 
 
-
+//בשביל בדיקות
 let frameCount = 0;
 let startTime = performance.now();
-
+//בשביל ממוצע
 let tempArry = new Array();
 let staticTempArry = new Array();
 let inFrameHalfMinAVGArry = new Array();
 let outFrameHalfMinAVGArry = new Array();
 let tooCloseHalfMinAVGArry = new Array();
 let tooFarHalfMinAVGArry = new Array();
+//בשביל עצירה
+let isPredicting = true;
 
 async function loop(timestamp) {
     webcam.update(); // update the webcam frame
     await predict();
     window.requestAnimationFrame(loop);
-    //אם עברה חצי דקה
-    //שמירת המערך במשתנה קבוע
-    //חישוב מערך זמני
-    //הכנסה למערך קבוע
-    //איפוס מערך זמני
-    //שונה מחצי דקה ל10 שניות
+    //אם עברה חצי דקה    //שמירת המערך במשתנה קבוע    //חישוב מערך זמני    //הכנסה למערך קבוע    //איפוס מערך זמני    //שונה מחצי דקה ל10 שניות
     if (performance.now() - startTime >= 10000) {
         staticTempArry = tempArry;
-        //console.log('staticTempArry'+staticTempArry);
-        //console.log('tempArry'+tempArry);
         tempArry = new Array();
         let arrysNamesArry = [inFrameHalfMinAVGArry, outFrameHalfMinAVGArry, tooCloseHalfMinAVGArry, tooFarHalfMinAVGArry];
         for (let arryi = 0; arryi < arrysNamesArry.length; arryi++) {
@@ -79,9 +73,7 @@ async function loop(timestamp) {
                 console.log("error in staticTempArry AVG")
             }
         }
-        //console.log("inFrameHalfMinAVGArry"+inFrameHalfMinAVGArry+"outFrameHalfMinAVGArry"+outFrameHalfMinAVGArry+"tooCloseHalfMinAVGArry"+tooCloseHalfMinAVGArry+"tooFarHalfMinAVGArry"+tooFarHalfMinAVGArry);
-        // Reset time
-        startTime = performance.now();
+        startTime = performance.now();// Reset time
         updateVisualization();
     }
     //לחישוב כמות הפריימים
@@ -102,9 +94,10 @@ async function loop(timestamp) {
 
 
 async function predict() {
+
+    if (!isPredicting) return; // exit the function if isPredicting is false
     // לחישוב הדילאיי
     //const start = performance.now();
-
     // Prediction #1: run input through posenet
     // estimatePose can take in an image, video or canvas html element
     const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
@@ -117,26 +110,16 @@ async function predict() {
         labelContainer.childNodes[i].innerHTML = classPrediction;
         //הכנסת התחזית למערך זמני
         tempArry.push(prediction[i].probability.toFixed(2));
-        // console.log(prediction[0].probability.toFixed(2));
     }
-    // המספר של כל קלאס במערך
-    // 0 בפריים
-    // 1 לא בפריים
-    // 2 רחוק מדי
-    // 3 קרוב מדי
-
-
-
+    // המספר של כל קלאס במערך    // 0 בפריים    // 1 לא בפריים    // 2 רחוק מדי    // 3 קרוב מדי
     //לחישוב הדילאי
     //const end = performance.now();
     // Calculate the latency
     //const latency = end - start;
     //console.log(`Latency: ${latency} ms`);
 
-
     // finally draw the poses
     drawPose(pose);
-
 }
 
 function drawPose(pose) {
@@ -145,18 +128,15 @@ function drawPose(pose) {
         // draw the keypoints and skeleton
         if (pose) {
             const minPartConfidence = 0.5;
-            tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
-            tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
+           tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+           tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
         }
     }
 }
 
-
-
 //יצירת משוב מיידי
 async function updateVisualization() {
-    //בדוק את החצי דקה האחרונה
-    //אם ___ מעל 0.8 תציג משוב מתאים
+    //בדוק את החצי דקה האחרונה    //אם ___ מעל 0.8 תציג משוב מתאים
     let span = document.getElementById("ansFrameTxt");
     const box = document.getElementById("ansFrame");
     if (inFrameHalfMinAVGArry[inFrameHalfMinAVGArry.length - 1] >= 0.8) {
@@ -170,13 +150,11 @@ async function updateVisualization() {
         if (box.classList.contains('feedbackgood') == false) {
             box.classList.add('feedbackgood');
         }
-
     }
     else if (tooCloseHalfMinAVGArry[tooCloseHalfMinAVGArry.length - 1] >= 0.8) {
         //הודעה קרוב מדי
         console.log("קרוב");
-       span.innerHTML = "כדאי להתרחק מהמלצמה";
-
+        span.innerHTML = "כדאי להתרחק מהמלצמה";
 
         if (box.classList.contains('feedbackgood')) {
             box.classList.remove('feedbackgood');
@@ -189,7 +167,6 @@ async function updateVisualization() {
         //הודעה רחוק מדי
         console.log("רחוק");
         span.innerHTML = " כדאי להתקרב למצלמה";
-
 
         if (box.classList.contains('feedbackgood')) {
             box.classList.remove('feedbackgood');
@@ -211,6 +188,14 @@ async function updateVisualization() {
         }
     }
 
+}
+
+
+//פונקציה לעצירת החישוב
+function stopLoop() {
+    webcam.stop();
+    isPredicting = false;
+    model.dispose();
 }
 
 

@@ -192,7 +192,8 @@ async function updateVisualization() {
 
 
 //פונקציה לעצירת החישוב
-function stopLoop() {
+function stopLoopF() {
+    console.log("stop loop was called");
     webcam.stop();
     isPredicting = false;
     model.dispose();

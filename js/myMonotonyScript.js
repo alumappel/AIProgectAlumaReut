@@ -140,8 +140,7 @@ let presentegBadM;
 function creatEndVarsM() {
     overAllTimeMinM = monotonyTenSecAVGArry.length * (milSecForUpdate/1000) / 60;
     let viraityCount = 0;
-    for (let i = 0; i < VarietyTenSecAVGArry.length; i++) {
-        console.log("VarietyTenSecAVGArry[i] " + VarietyTenSecAVGArry[i]);
+    for (let i = 0; i < VarietyTenSecAVGArry.length; i++) {        
         if (VarietyTenSecAVGArry[i] >= 0.8) {
             viraityCount++;
         }

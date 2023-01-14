@@ -32,7 +32,7 @@ async function initFrame() {
     labelContainer = document.getElementById("label-container-frame");
     for (let i = 0; i < maxPredictions; i++) { // and class labels
         labelContainer.appendChild(document.createElement("div"));
-    }
+    }   
 
 }
 
@@ -53,6 +53,7 @@ async function loop(timestamp) {
     webcam.update(); // update the webcam frame
     await predict();
     window.requestAnimationFrame(loop);
+    if (!isPredicting) return; // exit the function if isPredicting is false
     //אם עברה חצי דקה    //שמירת המערך במשתנה קבוע    //חישוב מערך זמני    //הכנסה למערך קבוע    //איפוס מערך זמני    //שונה מחצי דקה ל10 שניות
     if (performance.now() - startTime >= milSecForUpdate) {
         staticTempArry = tempArry;
@@ -190,7 +191,8 @@ async function updateVisualization() {
 
 
 //פונקציה לעצירת החישוב
-function stopLoopF() {    
+function stopLoopF() {  
+    console.log("stop");  
     webcam.stop();
     isPredicting = false;
     model.dispose();

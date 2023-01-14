@@ -1,3 +1,6 @@
+let milSecForUpdate;
+
+
 document.addEventListener("DOMContentLoaded", function (event) {
     document.getElementById("FramBtn").addEventListener("click", startFrame);
     document.getElementById("MonBtn").addEventListener("click", startMon);
@@ -5,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     document.getElementById("StopBtn").addEventListener("click", stopAllProssing);
 
     //מהירות משוב   
-    let milSecForUpdate=5000;
+    milSecForUpdate=5000;
     document.getElementById("FrqInput").value=5;
     document.getElementById("FrqInputV").innerHTML=5;    
 

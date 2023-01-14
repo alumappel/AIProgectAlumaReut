@@ -194,6 +194,23 @@ function stopLoopF() {
     webcam.stop();
     isPredicting = false;
     model.dispose();
+    creatEndVarsF();
 }
 
 
+//שמירת נתונים בסיום
+let overAllTimeMinF;
+let presentegGoodF;
+let presentegBadF;
+
+function creatEndVarsF() {
+    overAllTimeMinF = inFrameHalfMinAVGArry.length * 10 / 60;
+    let GoodCount = 0;     
+    for (let i = 0; i < inFrameHalfMinAVGArry.length; i++) {
+        if (inFrameHalfMinAVGArry[i] >= 0.8) {
+            GoodCount++;
+        }       
+    }   
+    presentegGoodF = ( GoodCount / inFrameHalfMinAVGArry.length) * 100;
+    presentegBadF = 100-presentegGoodF;
+}

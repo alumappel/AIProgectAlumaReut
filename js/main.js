@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     document.getElementById("MonBtn").addEventListener("click", startMon);
     document.getElementById("VolBtn").addEventListener("click", startVol);
     document.getElementById("StopBtn").addEventListener("click", stopAllProssing);
-    
+
 });
 
 function startFrame() {
@@ -52,10 +52,12 @@ function stopAllProssing() {
     if (isPredicting) {
         stopLoopF();
         document.getElementById("colFrameEnd").classList.remove("d-none");
+        drawChartFrame();
     }
     if (isListening) {
         stopLoopM();
         document.getElementById("colMonEnd").classList.remove("d-none");
+        drawChartMon();
     }
     if (isRunning) {
         stopLoopV();
@@ -70,7 +72,7 @@ function stopAllProssing() {
 function showEnd() {
     //הסתרת 
     document.getElementById("OpenTxt").classList.add("d-none");
-    document.getElementById("StartBtn").classList.add("d-none");    
+    document.getElementById("StartBtn").classList.add("d-none");
     document.getElementById("stopBtnRow").classList.add("d-none");
     document.getElementById("feedback").classList.add("d-none");
 
@@ -79,37 +81,86 @@ function showEnd() {
 
 }
 
-function drawChartVol() {    
-
+function drawChartVol() {
     // Create the data table.
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'ביצוע');
     data.addColumn('number', 'אחוז מהזמן');
     data.addRows([
-      ['בדיוק במידה', presentegGoodV],
-      ['חלש מדי', presentegLowV],
-      ['חזק מדי', presentegHighV]     
+        ['בדיוק במידה', presentegGoodV],
+        ['חלש מדי', presentegLowV],
+        ['חזק מדי', presentegHighV]
     ]);
 
     // Set chart options
-    var colors = [ '#a6cee3', '#9a69b2', '#fb99e6', '#fdbf6f','#cbf24d','#b69200'];
+    var colors = ['#a6cee3', '#9a69b2', '#fb99e6', '#fdbf6f', '#cbf24d', '#b69200'];
 
     var options = {
-    legend:{ position: 'labeled',textStyle: {color: 'black',fontName:'Rubik' ,fontSize:14 ,bold:true } , strokeColor: {color: 'black'}},
-    colors: colors,
-    backgroundColor:'none',    
-    fontName:'Rubik',    
-    pieSliceText:'none',
-    tooltip:{text:'percentage'},
-     
-    
-
-                   };
+        legend: { position: 'labeled', textStyle: { color: 'black', fontName: 'Rubik', fontSize: 14, bold: true }, strokeColor: { color: 'black' } },
+        colors: colors,
+        backgroundColor: 'none',
+        fontName: 'Rubik',
+        pieSliceText: 'none',
+        tooltip: { text: 'percentage' },
+    };
 
     // Instantiate and draw our chart, passing in some options.
     var chart = new google.visualization.PieChart(document.getElementById('VolChart'));
     chart.draw(data, options);
-      
+}
 
 
-  }
+function drawChartMon() {
+        // Create the data table.
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'ביצוע');
+    data.addColumn('number', 'אחוז מהזמן');
+    data.addRows([
+        ['מגוון',  presentegGoodM],
+        ['מונוטוני', presentegBadM]
+    ]);
+
+    // Set chart options
+    var colors = ['#a6cee3', '#9a69b2', '#fb99e6', '#fdbf6f', '#cbf24d', '#b69200'];
+
+    var options = {
+        legend: { position: 'labeled', textStyle: { color: 'black', fontName: 'Rubik', fontSize: 14, bold: true }, strokeColor: { color: 'black' } },
+        colors: colors,
+        backgroundColor: 'none',
+        fontName: 'Rubik',
+        pieSliceText: 'none',
+        tooltip: { text: 'percentage' },
+    };
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.PieChart(document.getElementById('MonChart'));
+    chart.draw(data, options);
+}
+
+
+function drawChartFrame() {
+    // Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('string', 'ביצוע');
+data.addColumn('number', 'אחוז מהזמן');
+data.addRows([
+    ['מיקום נכון בפריים',  presentegGoodF],
+    ['מיקום לא נכן בפריים', presentegBadF]
+]);
+
+// Set chart options
+var colors = ['#a6cee3', '#9a69b2', '#fb99e6', '#fdbf6f', '#cbf24d', '#b69200'];
+
+var options = {
+    legend: { position: 'labeled', textStyle: { color: 'black', fontName: 'Rubik', fontSize: 14, bold: true }, strokeColor: { color: 'black' } },
+    colors: colors,
+    backgroundColor: 'none',
+    fontName: 'Rubik',
+    pieSliceText: 'none',
+    tooltip: { text: 'percentage' },
+};
+
+// Instantiate and draw our chart, passing in some options.
+var chart = new google.visualization.PieChart(document.getElementById('FrameChart'));
+chart.draw(data, options);
+}

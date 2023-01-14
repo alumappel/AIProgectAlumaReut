@@ -95,7 +95,7 @@ async function updateVisualizationM() {
     //בדוק את החצי דקה האחרונה    //אם ___ מעל 0.8 תציג משוב מתאים
     let span = document.getElementById("ansMonTxt");
     const box = document.getElementById("ansMon");
-    if (VarietyTenSecAVGArry.length - 1 >= 0.8) {
+    if (VarietyTenSecAVGArry[VarietyTenSecAVGArry.length - 1] >= 0.8) {
         //הודעה חיובית
         console.log("מעולה");
         span.innerHTML = "מעולה!";
@@ -126,4 +126,26 @@ function stopLoopM() {
     recognizer.stopListening();
     isListening = false;
     clearInterval(listenIntervalId);
+    creatEndVarsM();
+}
+
+
+
+
+//שמירת נתונים בסיום
+let overAllTimeMinM;
+let presentegGoodM;
+let presentegBadM;
+
+function creatEndVarsM() {
+    overAllTimeMinM = monotonyTenSecAVGArry.length * 10 / 60;
+    let viraityCount = 0;
+    for (let i = 0; i < VarietyTenSecAVGArry.length; i++) {
+        console.log("VarietyTenSecAVGArry[i] " + VarietyTenSecAVGArry[i]);
+        if (VarietyTenSecAVGArry[i] >= 0.8) {
+            viraityCount++;
+        }
+    }
+    presentegGoodM = (viraityCount / VarietyTenSecAVGArry.length) * 100;
+    presentegBadM = 100 - presentegGoodM;
 }

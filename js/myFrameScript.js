@@ -47,6 +47,7 @@ let inFrameHalfMinAVGArry = new Array();
 let outFrameHalfMinAVGArry = new Array();
 let tooCloseHalfMinAVGArry = new Array();
 let tooFarHalfMinAVGArry = new Array();
+let predictionNumF=0;
 
 
 async function loop(timestamp) {
@@ -109,6 +110,7 @@ async function predict() {
         labelContainer.childNodes[i].innerHTML = classPrediction;
         //הכנסת התחזית למערך זמני
         tempArry.push(prediction[i].probability.toFixed(2));
+        predictionNumF++;
     }
     // המספר של כל קלאס במערך    // 0 בפריים    // 1 לא בפריים    // 2 רחוק מדי    // 3 קרוב מדי
     //לחישוב הדילאי

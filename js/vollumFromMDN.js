@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 let tempArryV = new Array();
 let staticTempArryV = new Array();
 let volTenSecAVGArry = new Array();
+let predictionNumV=0;
 
 //לעצירה
 let isRunning;
@@ -34,6 +35,7 @@ async function startDB() {
     volumeMeterEl.value = Math.sqrt(sumSquares / pcmData.length);
     //הוספה למערך זמני
     tempArryM.push(Math.sqrt(sumSquares / pcmData.length).toFixed(2));
+    predictionNumV++;
 
     window.requestAnimationFrame(onFrame);
   };

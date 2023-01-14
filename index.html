@@ -61,10 +61,12 @@
             <div class="row justify-content-center">
                 <div class="col col-lg-12">
                     <h1>ממשק מישוב פרזנטציות בשיחות וועידה</h1>
-                    <p id="OpenTxt">ברוכים וברוכות הבאות למערכת המישוב. כרגע המערכת יכולה לאבחן אתכם ב3 קריטריונים:
-                        ווליום, בדיקה של
-                        דיבור מונוטוני, וזיהוי מיקום מיטבי בפריים.<br> לתחילת אבחון מוזמנים ללחוץ על הכפתורים שתרצו
-                        לאבחן, ניתן לאבחן את כל המדדים במקביל או מדדים אחדים לפי בחירתכם.
+                    <p id="OpenTxt">
+                        ברוכים וברוכות הבאות למערכת המישוב. כרגע המערכת יכולה לבדוק 3 קריטריונים: ווליום, דיבור מונוטוני, וזיהוי מיקום מיטבי בפריים.
+                        <br> 
+                        לתחילת ההתנסות במערכת מוזמנים ללחוץ על הכפתורים שאותם תרצו לבדוק במהלך הפרזנטציה.
+                        <br> 
+                        שימו לב: ניתן לבדוק את כל המדדים במקביל או מדדים אחדים לפי בחירתכם.
                     </p>
                     <div class="row justify-content-start" id="StartBtn">
                         <div class="col col-3">
@@ -81,7 +83,8 @@
                         </div>
                         <div class="col col-3">
                             <label for="FrqInput" class="form-label" style="margin-bottom: 0%;">תדירות מישוב:
-                            <span id="FrqInputV"></span>   </label>
+                            <span id="FrqInputV"></span> 
+                        שניות  </label>
                             <input type="range" class="form-range" min="1" max="30" step="1" id="FrqInput" onchange="frqChange()">
                         </div>
                     </div>
@@ -142,21 +145,30 @@
                     <div id="EndRow" class="row justify-content-between ">
                         <div id="colVolEnd" class="col just-border d-none">
                             <h2>ווליום</h2>
-                            <div id="VolChart" class="d-flex justify-content-center align-items-center">
-
-                            </div>
+                            <div id="VolChart" class="d-flex justify-content-center align-items-center"></div>
+                            <p>
+                                מבוסס על 
+                                <span id="VolNum"></span>
+                                דגימות
+                            </p>
                         </div>
                         <div id="colMonEnd" class="col  d-none ">
                             <h2>דיבור מונוטוני</h2>
-                            <div id="MonChart" class="d-flex justify-content-center align-items-center">
-
-                            </div>
+                            <div id="MonChart" class="d-flex justify-content-center align-items-center"></div>
+                            <p>
+                                מבוסס על 
+                                <span id="MonNum"></span>
+                                דגימות
+                            </p>
                         </div>
                         <div id="colFrameEnd" class="col just-border d-none">
                             <h2>מיקום בפריים</h2>
-                            <div id="FrameChart" class="d-flex justify-content-center align-items-center">
-
-                            </div>
+                            <div id="FrameChart" class="d-flex justify-content-center align-items-center"></div>
+                            <p>
+                                מבוסס על 
+                                <span id="FrameNum"></span>
+                                דגימות
+                            </p>
                         </div>
 
                     </div>

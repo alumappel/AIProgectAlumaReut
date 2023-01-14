@@ -31,6 +31,7 @@ let tempArryM = new Array();
 let staticTempArryM = new Array();
 let monotonyTenSecAVGArry = new Array();
 let VarietyTenSecAVGArry = new Array();
+let predictionNumM=0;
 
 
 
@@ -58,6 +59,7 @@ async function initMonotony() {
             labelContainer.childNodes[i].innerHTML = classPrediction;
             //הכנסת התחזית למערך זמני
             tempArryM.push(result.scores[i].toFixed(2));
+            predictionNumM++;
             //המספר של כל קלאס במערך            // 0 רעש רקע            // 1 מונוטוני            // 2 מגוון
         }
     }, {

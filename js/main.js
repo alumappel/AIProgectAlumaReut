@@ -68,16 +68,20 @@ function stopAllProssing() {
         stopLoopF();
         document.getElementById("colFrameEnd").classList.remove("d-none");
         drawChartFrame();
+        document.getElementById("FrameNum").innerHTML=predictionNumF;
     }
     if (isListening) {
         stopLoopM();
         document.getElementById("colMonEnd").classList.remove("d-none");
         drawChartMon();
+        document.getElementById("MonNum").innerHTML=predictionNumM;
     }
     if (isRunning) {
         stopLoopV();
         document.getElementById("colVolEnd").classList.remove("d-none");
         drawChartVol();
+        document.getElementById("VolNum").innerHTML=predictionNumV;
+        
     }
 
     showEnd();

@@ -8,7 +8,7 @@ let staticTempArryV = new Array();
 let volTenSecAVGArry = new Array();
 
 //לעצירה
-let isRunning = true;
+let isRunning;
 let animationId;
 let intervalId;
 
@@ -20,9 +20,8 @@ async function startDB() {
   mediaStreamAudioSourceNode.connect(analyserNode);
   const volumeMeterEl = document.getElementById("volume-meter");
 
-  const pcmData = new Float32Array(analyserNode.fftSize);
-  //מציג את המשוב
-  document.getElementById("colVol").classList.remove('d-none');
+  const pcmData = new Float32Array(analyserNode.fftSize); 
+  
 
   const onFrame = () => {
     if (!isRunning) {
@@ -112,4 +111,27 @@ async function updateVisualizationV() {
 function stopLoopV() {
   isRunning = false;
   clearInterval(intervalId);
+  creatEndVarsV();
+}
+
+
+
+let overAllTimeMinV;
+let presentegGoodV;
+let presentegLowV;
+let presentegHighV;
+function creatEndVarsV(){
+  overAllTimeMinV = volTenSecAVGArry.length * 10 / 60;
+  let lowCount = 0;
+  let highCount = 0;
+  for (let i = 0; i < volTenSecAVGArry.length; i++) {
+      if (volTenSecAVGArry[i] < 0.032) {
+          lowCount++;
+      } else if (volTenSecAVGArry[i] > 0.07) {
+          highCount++;
+      }
+  }
+  presentegLowV = (lowCount / volTenSecAVGArry.length) * 100;
+  presentegHighV = (highCount / volTenSecAVGArry.length) * 100;
+  presentegGoodV = 100 - presentegLowV - presentegHighV;  
 }

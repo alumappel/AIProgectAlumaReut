@@ -1,5 +1,103 @@
-function stopAllProssing(){
-    stopLoopF();
-    stopLoopM();
-    stopLoopV();
+document.addEventListener("DOMContentLoaded", function (event) {
+    document.getElementById("FramBtn").addEventListener("click", startFrame);
+    document.getElementById("MonBtn").addEventListener("click", startMon);
+    document.getElementById("VolBtn").addEventListener("click", startVol);
+    document.getElementById("StopBtn").addEventListener("click", stopAllProssing);
+    
+});
+
+function startFrame() {
+    document.getElementById("FramBtn").removeEventListener("click", startFrame);
+    isPredicting = true;
+    initFrame();
+    //חשיפה של האלמנטים
+    document.getElementById("video-col").classList.remove('d-none');
+    document.getElementById("colFrame").classList.remove('d-none');
+    if (document.getElementById("StopBtn").classList.contains("d-none")) {  // check if element has the class "d-none"
+        document.getElementById("StopBtn").classList.remove("d-none");  // remove the class "d-none"
+    }
+    //הסתרת הכפתור
+    document.getElementById("FramBtn").classList.add("d-none");
 }
+
+function startMon() {
+    document.getElementById("MonBtn").removeEventListener("click", startMon);
+    isListening = true;
+    initMonotony();
+    //חשיפה של האלמנטים       
+    document.getElementById("colMon").classList.remove('d-none');
+    if (document.getElementById("StopBtn").classList.contains("d-none")) {  // check if element has the class "d-none"
+        document.getElementById("StopBtn").classList.remove("d-none");  // remove the class "d-none"
+    }
+    //הסתרת הכפתור
+    document.getElementById("MonBtn").classList.add("d-none");
+}
+
+function startVol() {
+    document.getElementById("FramBtn").removeEventListener("click", startVol);
+    isRunning = true;
+    startDB();
+    //חשיפה של האלמנטים
+    document.getElementById("colVol").classList.remove('d-none');
+    if (document.getElementById("StopBtn").classList.contains("d-none")) {  // check if element has the class "d-none"
+        document.getElementById("StopBtn").classList.remove("d-none");  // remove the class "d-none"
+    }
+    //הסתרת הכפתור
+    document.getElementById("VolBtn").classList.add("d-none");
+}
+
+
+function stopAllProssing() {
+    document.getElementById("StopBtn").removeEventListener("click", stopAllProssing);
+    if (isPredicting) {
+        stopLoopF();
+        document.getElementById("colFrameEnd").classList.remove("d-none");
+    }
+    if (isListening) {
+        stopLoopM();
+        document.getElementById("colMonEnd").classList.remove("d-none");
+    }
+    if (isRunning) {
+        stopLoopV();
+        document.getElementById("colVolEnd").classList.remove("d-none");
+        drawChartVol();
+    }
+
+    showEnd();
+}
+
+
+function showEnd() {
+    //הסתרת פסקת פתיחה
+    document.getElementById("OpenTxt").classList.add("d-none");
+
+    //הצגת איזור משוב מסכם
+    document.getElementById("EndRow").classList.remove("d-none");
+
+}
+
+function drawChartVol() {    
+
+    // Create the data table.
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'ביצוע');
+    data.addColumn('number', 'אחוז מהזמן');
+    data.addRows([
+      ['בדיוק במידה', presentegGoodV],
+      ['חלש מדי', presentegLowV],
+      ['חזק מדי', presentegHighV]     
+    ]);
+
+    // Set chart options
+    var options = {'title':'איך היה הווליום שלך?',
+    'legend':'top',
+                   'width':200,
+                   'height':120};
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.PieChart(document.getElementById('VolChart'));
+    chart.draw(data, options);
+      
+
+
+  }

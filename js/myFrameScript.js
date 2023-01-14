@@ -4,6 +4,8 @@
 // the link to your model provided by Teachable Machine export panel
 // const URL = "./my_model/";
 let model, webcam, ctx, labelContainer, maxPredictions;
+//בשביל עצירה
+let isPredicting;
 
 async function initFrame() {
     const modelPath = "FrameModel4/model.json";
@@ -32,9 +34,6 @@ async function initFrame() {
         labelContainer.appendChild(document.createElement("div"));
     }
 
-    //חשיפה של האלמנטים
-    document.getElementById("video-col").classList.remove('d-none');
-    document.getElementById("colFrame").classList.remove('d-none');
 }
 
 
@@ -48,8 +47,7 @@ let inFrameHalfMinAVGArry = new Array();
 let outFrameHalfMinAVGArry = new Array();
 let tooCloseHalfMinAVGArry = new Array();
 let tooFarHalfMinAVGArry = new Array();
-//בשביל עצירה
-let isPredicting = true;
+
 
 async function loop(timestamp) {
     webcam.update(); // update the webcam frame
@@ -192,8 +190,7 @@ async function updateVisualization() {
 
 
 //פונקציה לעצירת החישוב
-function stopLoopF() {
-    console.log("stop loop was called");
+function stopLoopF() {    
     webcam.stop();
     isPredicting = false;
     model.dispose();

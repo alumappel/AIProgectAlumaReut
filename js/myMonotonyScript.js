@@ -4,6 +4,9 @@
 // the link to your model provided by Teachable Machine export panel
 const URL = "https://teachablemachine.withgoogle.com/models/ZnR7rgHeL/";
 
+// עצירה
+let isListening;
+let listenIntervalId;
 
 
 async function createModel() {
@@ -30,9 +33,7 @@ let monotonyTenSecAVGArry = new Array();
 let VarietyTenSecAVGArry = new Array();
 
 
-// עצירה
-let isListening = true;
-let listenIntervalId;
+
 
 
 let recognizer;
@@ -44,8 +45,6 @@ async function initMonotony() {
         labelContainer.appendChild(document.createElement("div"));
     }
 
-    //הצגת מחלקת המשוב
-    document.getElementById("colMon").classList.remove('d-none');
 
     // listen() takes two arguments:
     // 1. A callback function that is invoked anytime a word is recognized.

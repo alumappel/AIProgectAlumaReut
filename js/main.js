@@ -68,11 +68,14 @@ function stopAllProssing() {
 
 
 function showEnd() {
-    //הסתרת פסקת פתיחה
+    //הסתרת 
     document.getElementById("OpenTxt").classList.add("d-none");
+    document.getElementById("StartBtn").classList.add("d-none");    
+    document.getElementById("stopBtnRow").classList.add("d-none");
+    document.getElementById("feedback").classList.add("d-none");
 
     //הצגת איזור משוב מסכם
-    document.getElementById("EndRow").classList.remove("d-none");
+    document.getElementById("EndTxt").classList.remove("d-none");
 
 }
 
@@ -89,10 +92,19 @@ function drawChartVol() {
     ]);
 
     // Set chart options
-    var options = {'title':'איך היה הווליום שלך?',
-    'legend':'top',
-                   'width':200,
-                   'height':120};
+    var colors = [ '#a6cee3', '#9a69b2', '#fb99e6', '#fdbf6f','#cbf24d','#b69200'];
+
+    var options = {
+    legend:{ position: 'labeled',textStyle: {color: 'black',fontName:'Rubik' ,fontSize:14 ,bold:true } , strokeColor: {color: 'black'}},
+    colors: colors,
+    backgroundColor:'none',    
+    fontName:'Rubik',    
+    pieSliceText:'none',
+    tooltip:{text:'percentage'},
+     
+    
+
+                   };
 
     // Instantiate and draw our chart, passing in some options.
     var chart = new google.visualization.PieChart(document.getElementById('VolChart'));

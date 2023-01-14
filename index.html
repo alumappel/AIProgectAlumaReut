@@ -47,9 +47,9 @@
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});      
-      </script>  
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', { 'packages': ['corechart'] });      
+    </script>
 
 
 </head>
@@ -66,7 +66,7 @@
                         דיבור מונוטוני, וזיהוי מיקום מיטבי בפריים.<br> לתחילת אבחון מוזמנים ללחוץ על הכפתורים שתרצו
                         לאבחן, ניתן לאבחן את כל המדדים במקביל או מדדים אחדים לפי בחירתכם.
                     </p>
-                    <div class="row justify-content-start">
+                    <div class="row justify-content-start" id="StartBtn">
                         <div class="col col-3">
                             <button class="btn btn btn-outline-dark w-100" type="button" id="VolBtn">בדיקת
                                 ווליום</button>
@@ -82,7 +82,7 @@
                     </div>
 
 
-                    <div class="row justify-content-between">
+                    <div class="row justify-content-between" id="feedback">
                         <div id="colVol" class="col  greycol d-none">
                             <h2>ווליום</h2>
                             <div id="ansVol" class="d-flex justify-content-center align-items-center feedbacksqwer">
@@ -116,7 +116,7 @@
                         </div>
                     </div>
 
-                    <div class="row justify-content-center">
+                    <div class="row justify-content-center" id="stopBtnRow">
                         <button class="btn btn-dark btn-lg btn-block d-none" type="button" id="StopBtn">סיום</button>
                     </div>
 
@@ -125,31 +125,31 @@
 
 
 
-                    <div id="EndRow" class="row justify-content-between d-none ">
-                        <div id="EndTxt" class="col ">
-                            <p>
-                                כל הכבוד! <br>
-                                עכשיו, לאחר סיום הפרזנטציה, בואו נראה איך היו הביצועים שלך. <br><br>
-                                הגרפים מציגים באחוזים מהזמן הכולל של הפרזנטציה.
-                            </p>
-                        </div>
 
+                    <div id="EndTxt" class="col d-none">
+                        <p>
+                            כל הכבוד! <br>
+                            עכשיו, לאחר סיום הפרזנטציה, בואו נראה איך היו הביצועים שלך. <br><br>
+                            הגרפים מציגים באחוזים מהזמן הכולל של הפרזנטציה.
+                        </p>
+                    </div>
 
-                        <div id="colVolEnd" class="col   greycol d-none">
+                    <div id="EndRow" class="row justify-content-between ">
+                        <div id="colVolEnd" class="col just-border d-none">
                             <h2>ווליום</h2>
-                            <div id="VolChart" class="d-flex justify-content-center align-items-center feedbacksqwer">                
+                            <div id="VolChart" class="d-flex justify-content-center align-items-center">
 
                             </div>
                         </div>
-                        <div id="colMonEnd" class="col d-none ">
+                        <div id="colMonEnd" class="col  d-none ">
                             <h2>דיבור מונוטוני</h2>
-                            <div id="MonChart" class="d-flex justify-content-center align-items-center feedbacksqwer">
-                                
+                            <div id="MonChart" class="d-flex justify-content-center align-items-center">
+
                             </div>
                         </div>
-                        <div id="colFrameEnd" class="col  greycol d-none">
+                        <div id="colFrameEnd" class="col just-border d-none">
                             <h2>מיקום בפריים</h2>
-                            <div id="FrameChart" class="d-flex justify-content-center align-items-center feedbacksqwer">                             
+                            <div id="FrameChart" class="d-flex justify-content-center align-items-center">
 
                             </div>
                         </div>

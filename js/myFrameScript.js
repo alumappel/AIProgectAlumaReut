@@ -54,7 +54,7 @@ async function loop(timestamp) {
     await predict();
     window.requestAnimationFrame(loop);
     //אם עברה חצי דקה    //שמירת המערך במשתנה קבוע    //חישוב מערך זמני    //הכנסה למערך קבוע    //איפוס מערך זמני    //שונה מחצי דקה ל10 שניות
-    if (performance.now() - startTime >= 10000) {
+    if (performance.now() - startTime >= milSecForUpdate) {
         staticTempArry = tempArry;
         tempArry = new Array();
         let arrysNamesArry = [inFrameHalfMinAVGArry, outFrameHalfMinAVGArry, tooCloseHalfMinAVGArry, tooFarHalfMinAVGArry];
@@ -204,7 +204,7 @@ let presentegGoodF;
 let presentegBadF;
 
 function creatEndVarsF() {
-    overAllTimeMinF = inFrameHalfMinAVGArry.length * 10 / 60;
+    overAllTimeMinF = inFrameHalfMinAVGArry.length * (milSecForUpdate/1000) / 60;
     let GoodCount = 0;     
     for (let i = 0; i < inFrameHalfMinAVGArry.length; i++) {
         if (inFrameHalfMinAVGArry[i] >= 0.8) {

@@ -4,7 +4,19 @@ document.addEventListener("DOMContentLoaded", function (event) {
     document.getElementById("VolBtn").addEventListener("click", startVol);
     document.getElementById("StopBtn").addEventListener("click", stopAllProssing);
 
+    //מהירות משוב   
+    let milSecForUpdate=5000;
+    document.getElementById("FrqInput").value=5;
+    document.getElementById("FrqInputV").innerHTML=5;    
+
 });
+
+//מהירות משוב
+function frqChange(){
+ let input =document.getElementById("FrqInput").value;
+ milSecForUpdate=input*1000;
+ document.getElementById("FrqInputV").innerHTML=input; 
+}
 
 function startFrame() {
     document.getElementById("FramBtn").removeEventListener("click", startFrame);

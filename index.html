@@ -79,6 +79,11 @@
                             <button class="btn btn-outline-dark w-100" type="button" id="FramBtn">בדיקת מיקום
                                 בפריים</button>
                         </div>
+                        <div class="col col-3">
+                            <label for="FrqInput" class="form-label" style="margin-bottom: 0%;">תדירות מישוב:
+                            <span id="FrqInputV"></span>   </label>
+                            <input type="range" class="form-range" min="1" max="30" step="1" id="FrqInput" onchange="frqChange()">
+                        </div>
                     </div>
 
 
@@ -126,7 +131,7 @@
 
 
 
-                    <div id="EndTxt" class="col d-none">
+                    <div id="EndTxt" class="d-none">
                         <p>
                             כל הכבוד! <br>
                             עכשיו, לאחר סיום הפרזנטציה, בואו נראה איך היו הביצועים שלך. <br><br>

@@ -57,7 +57,7 @@ async function startDB() {
     }    
     updateVisualizationV();
   };
-  intervalId= setInterval(everyTenSeconds, 10000);
+  intervalId= setInterval(everyTenSeconds,milSecForUpdate);
 }
 
 
@@ -121,7 +121,7 @@ let presentegGoodV;
 let presentegLowV;
 let presentegHighV;
 function creatEndVarsV(){
-  overAllTimeMinV = volTenSecAVGArry.length * 10 / 60;
+  overAllTimeMinV = volTenSecAVGArry.length * (milSecForUpdate/1000) / 60;
   let lowCount = 0;
   let highCount = 0;
   for (let i = 0; i < volTenSecAVGArry.length; i++) {

@@ -86,7 +86,7 @@ async function initMonotony() {
             }
         }
         updateVisualizationM();
-    }, 10000);
+    }, milSecForUpdate);
 }
 
 
@@ -138,7 +138,7 @@ let presentegGoodM;
 let presentegBadM;
 
 function creatEndVarsM() {
-    overAllTimeMinM = monotonyTenSecAVGArry.length * 10 / 60;
+    overAllTimeMinM = monotonyTenSecAVGArry.length * (milSecForUpdate/1000) / 60;
     let viraityCount = 0;
     for (let i = 0; i < VarietyTenSecAVGArry.length; i++) {
         console.log("VarietyTenSecAVGArry[i] " + VarietyTenSecAVGArry[i]);

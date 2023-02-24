@@ -8,12 +8,19 @@
     <meta name="theme-color" content="#549D9D" />
     <title>מערכת למישוב פרזנטציות מקוונות</title>
 
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="root/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="root/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="root/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="root/favicon_io/site.webmanifest">
+
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
 
     <!-- general google teachable script -->
@@ -42,6 +49,9 @@
     <!-- main script -->
     <script src="js/main.js"></script>
 
+    <!-- API script -->
+    <script src="js/APIhandler.js"></script>
+
 
     <!-- google pie chart -->
     <!--Load the AJAX API-->
@@ -62,10 +72,11 @@
                 <div class="col col-lg-12">
                     <h1>ממשק מישוב פרזנטציות בשיחות וועידה</h1>
                     <p id="OpenTxt">
-                        ברוכים וברוכות הבאות למערכת המישוב. כרגע המערכת יכולה לבדוק 3 קריטריונים: ווליום, דיבור מונוטוני, וזיהוי מיקום מיטבי בפריים.
-                        <br> 
+                        ברוכים וברוכות הבאות למערכת המישוב. כרגע המערכת יכולה לבדוק 3 קריטריונים: ווליום, דיבור
+                        מונוטוני, וזיהוי מיקום מיטבי בפריים.
+                        <br>
                         לתחילת ההתנסות במערכת מוזמנים ללחוץ על הכפתורים שאותם תרצו לבדוק במהלך הפרזנטציה.
-                        <br> 
+                        <br>
                         שימו לב: ניתן לבדוק את כל המדדים במקביל או מדדים אחדים לפי בחירתכם.
                     </p>
                     <div class="row justify-content-start" id="StartBtn">
@@ -83,9 +94,10 @@
                         </div>
                         <div class="col col-3">
                             <label for="FrqInput" class="form-label" style="margin-bottom: 0%;">תדירות מישוב:
-                            <span id="FrqInputV"></span> 
-                        שניות  </label>
-                            <input type="range" class="form-range" min="1" max="30" step="1" id="FrqInput" onchange="frqChange()">
+                                <span id="FrqInputV"></span>
+                                שניות </label>
+                            <input type="range" class="form-range" min="1" max="30" step="1" id="FrqInput"
+                                onchange="frqChange()">
                         </div>
                     </div>
 
@@ -147,7 +159,7 @@
                             <h2>ווליום</h2>
                             <div id="VolChart" class="d-flex justify-content-center align-items-center"></div>
                             <p>
-                                מבוסס על 
+                                מבוסס על
                                 <span id="VolNum"></span>
                                 דגימות
                             </p>
@@ -156,7 +168,7 @@
                             <h2>דיבור מונוטוני</h2>
                             <div id="MonChart" class="d-flex justify-content-center align-items-center"></div>
                             <p>
-                                מבוסס על 
+                                מבוסס על
                                 <span id="MonNum"></span>
                                 דגימות
                             </p>
@@ -165,7 +177,7 @@
                             <h2>מיקום בפריים</h2>
                             <div id="FrameChart" class="d-flex justify-content-center align-items-center"></div>
                             <p>
-                                מבוסס על 
+                                מבוסס על
                                 <span id="FrameNum"></span>
                                 דגימות
                             </p>
@@ -176,6 +188,33 @@
 
                 </div>
             </div>
+
+            <div>
+                <button id="APItester" onclick="getPractices()">שליפת הכל</button>
+            </div> 
+            <div class="table-responsive"></div>           
+            <table class="table table-hover table-bordered caption-top">
+                <caption>פירוט אימונים - בלחיצה תוכלו לראות את תוצאות האימון</caption>
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" class="noborder">שם האימון</th>
+                        <th scope="col" class="noborder"></th>
+                        <th scope="col">תאריך</th>
+                        <th scope="col">שעה</th>
+                        <th scope="col">אורך כולל</th>                      
+                        <th scope="col">מחיקה</th>
+                      </tr>
+                </thead>
+                <tbody id="practicesTable" class="table-group-divider">
+                </tbody>
+              </table>
+              </div>
+
+
+
+
+
     </body>
 
 

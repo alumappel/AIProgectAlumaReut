@@ -21,9 +21,6 @@ p{
 }
 
 
-
-
-
 .row{
  margin-top: 4%;
  margin-bottom: 4%;
@@ -57,10 +54,6 @@ border:none;
     background-color: rgb(232, 91, 91);
     border: 2px black solid;
 }
-/* .chart > div{
-    width: 500px;
-    height: 800px;
-} */
 
 .just-border{
     border: 2px rgb(121, 121, 121) dashed;

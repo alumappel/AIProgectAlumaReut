@@ -20,7 +20,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
 
     <!-- general google teachable script -->
@@ -189,10 +189,12 @@
                 </div>
             </div>
 
-            <div>
-                <button id="APItester" onclick="getPractices()">שליפת הכל</button>
-            </div> 
-            <div class="table-responsive"></div>           
+            //כפתור יוצר טבלה
+            <button id="APItester" onclick="getPractices()">שליפת הכל</button>
+
+
+            <!-- טבלה -->
+            <div class="table-responsive"></div>
             <table class="table table-hover table-bordered caption-top">
                 <caption>פירוט אימונים - בלחיצה תוכלו לראות את תוצאות האימון</caption>
                 <thead class="table-dark">
@@ -202,17 +204,106 @@
                         <th scope="col" class="noborder"></th>
                         <th scope="col">תאריך</th>
                         <th scope="col">שעה</th>
-                        <th scope="col">אורך כולל</th>                      
+                        <th scope="col">אורך כולל</th>
                         <th scope="col">מחיקה</th>
-                      </tr>
+                    </tr>
                 </thead>
                 <tbody id="practicesTable" class="table-group-divider">
                 </tbody>
-              </table>
-              </div>
+            </table>
+        </div>
+
+        <!-- מודל מחיקה -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">מחיקת אימון</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ראינו שניסית למחוק את האימון, אנחנו רק מוודאים שזו באמת הכוונה....
+                    </div>
+                    <div class="modal-footer align-center">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">אוייש, זו כנראה
+                            טעות</button>
+                        <button type="button" id="modalDeleteBtn" data-bs-dismiss="modal" class="btn btn-outline-danger">אתם צודקים בהחלט, אני
+                            רוצה למחוק</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- הודעה -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3 text-bg-primary">
+            <div id="deleteToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        האימון נמחק בהצלחה
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
 
 
+        <!-- מודל עדכון -->
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">עריכת שם אימון</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>ראינו שרצית לשנות את שם האימון, אז זה בדיוק המקום:</p>
+                        <label for="nameInput" class="form-label">שם חדש לאימון:</label>
+                        <input class="form-control" list="datalistOptions" id="nameInput"
+                            placeholder="פרזנטציה בנושא להיות פרזנטור מעולה">
+                        <datalist id="datalistOptions">
+                            <option value="דיפוזיה במוליכים למחיצה">
+                            <option value="תרגול שימוש בקול">
+                            <option value="הכל על ביטקיון">
+                            <option value="תרגול שני של תנועות ידיים">
+                            <option value="התנסות ראשונית">
+                        </datalist>
+                    </div>
+                    <div class="modal-footer align-center">
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">אוייש, זו כנראה
+                            טעות</button>
+                        <button type="button" id="modalEditBtn" data-bs-dismiss="modal" class="btn btn-outline-success">
+                            בואו נחליף!
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- הודעה -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3 text-bg-primary">
+            <div id="editToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        שם האימון עודכן בהצלחה
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
 
+
+<!-- הודעת שגיאה-->
+<div class="toast-container position-fixed bottom-0 end-0 p-3 text-bg-primary">
+    <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                אוקי, לא להילחץ... אבל יש שגיאה. ננסה שוב?
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Close"></button>
+        </div>
+    </div>
+</div>
 
 
     </body>

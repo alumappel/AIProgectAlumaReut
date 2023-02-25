@@ -44,19 +44,132 @@ function showPractices(practices) {
         i++;
         //המרת תאריך
         var date = new Date(practice.date)
-        var dateStr = ("00" + date.getDate()).slice(-2) + "/" +  ("00" + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear();
-        var timeStr= ("00" + date.getHours()).slice(-2) + ":" + ("00" + date.getMinutes()).slice(-2);        
+        var dateStr = ("00" + date.getDate()).slice(-2) + "/" + ("00" + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear();
+        var timeStr = ("00" + date.getHours()).slice(-2) + ":" + ("00" + date.getMinutes()).slice(-2);
         //  עבור כל שאלה נבנה שורה בטבלה        
         const myHtml = `<tr>
             <th scope="row">${i}</th>
             <td class="noborder">${practice.practice_name} </td>
-            <td class="text-center noborder"><button type="button" class="btn btn-outline-dark"><span class="bi bi-pen"></span></button></td>
+            <td class="text-center noborder"><button type="button" class="btn btn-outline-dark"  onclick="transferIdtoEditModal(${practice.id})" data-bs-toggle="modal" data-bs-target="#editModal"><span class="bi bi-pen"></span></button></td>
             <td>${dateStr}</td>
             <td>${timeStr}</td>
             <td>${practice.overall_length}</td>            
-            <td class="text-center" ><button type="button" class="btn btn-outline-danger"><span class="bi bi-trash3"></span></button></td>
+            <td class="text-center" ><button id="deleteBtn" type="button" onclick="transferIdtoDeleteModal(${practice.id})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><span class="bi bi-trash3"></span></button></td>
             </tr>`
         //  נזריק את השאלה לטבלה
         table.innerHTML += myHtml;
     });
+}
+
+
+
+//העברת מידע למודל מחיקה
+function transferIdtoDeleteModal(id) {
+    document.getElementById("modalDeleteBtn").addEventListener("click", function () {
+        deletPractice(id);
+    });
+}
+
+//פונקציה למחיקת אימון
+async function deletPractice(id) {
+    // קריאה לבסיס הנתונים ומחיקת השאלה לפי המזהה שלה    
+    const url = `${controllerUrl}PracticeIdToDelete?idToDelete=${id}`;
+    // שמירת הפרמטרים לשליפה: סוג השליפה    
+    const params = {
+        method: 'DELETE',
+    }
+    // ביצוע הקריאה לשרת, נשלח את הנתיב והפרמטרים שהגדרנו    
+    const response = await fetch(url, params);
+    // במידה והקריאה הצליחה    
+    if (response.ok) {
+        // ניצור מחדש את רשימת השאלות המעודכנת        
+        getPractices();
+        //הודעה אישור
+        const toastLiveExample = document.getElementById('deleteToast');
+        const toast = new bootstrap.Toast(toastLiveExample);
+        toast.show();
+    } else {
+        // נציג את השגיאות במידה והערך לא תקין        
+        const errors = await response.text();
+        console.log(errors);
+        const toastLiveExample = document.getElementById('errorToast');
+        const toast = new bootstrap.Toast(toastLiveExample);
+        toast.show();
+    }
+}
+
+
+//העברת מידע למודל עדכון
+function transferIdtoEditModal(id) {
+    console.log("editPractice" + id);
+    document.getElementById("modalEditBtn").addEventListener("click", function () {
+        editPractice(id);
+    });
+}
+
+//פונקציה לעדכון שם אימון
+async function editPractice(id) {
+    const newName = document.getElementById("nameInput").value;
+    //הזנת ערכים באובייקט
+    const practiceObj =
+    {
+        "id": id,
+        "practice_name": newName,
+        "date": "2023-02-25T10:44:50.027Z",
+        "overall_length": 0,
+        "locationInFrame": {
+            "id": 0,
+            "measurement_time": 0,
+            "good_performance_time_percent": 0,
+            "out_of_frame_performance_time_percent": 0,
+            "too_close_performance_time_percent": 0,
+            "too_far_performance_time_percent": 0,
+            "practices_Id": 0
+        },
+        "pitch": {
+            "id": 0,
+            "measurement_time": 0,
+            "good_performance_time_percent": 0,
+            "practices_Id": 0
+        },
+        "volume": {
+            "id": 0,
+            "measurement_time": 0,
+            "volume_avg": 0,
+            "good_performance_time_percent": 0,
+            "too_loud_performance_time_percent": 0,
+            "too_quiet_performance_time_percent": 0,
+            "practices_Id": 0
+        }
+    }
+
+    //פה נבצע את הקריאה לקונטרולר
+    const url = `${controllerUrl}UpdatePracticeName`;
+    // שמירת הפרמטרים לשליפה: סוג השליפה
+    const params = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(practiceObj)
+    }
+    // ביצוע הקריאה לשרת, נשלח את הנתיב והפרמטרים שהגדרנו
+    const response = await fetch(url, params);
+    // במידה והקריאה הצליחה
+    if (response.ok) {
+        // ניצור מחדש את רשימת השאלות המעודכנת        
+        getPractices();
+        //הודעה אישור
+        const toastLiveExample = document.getElementById('editToast');
+        const toast = new bootstrap.Toast(toastLiveExample);
+        toast.show();
+    } else {
+        // נציג את השגיאות במידה והערך לא תקין
+        const errors = await response.text();
+        console.log(errors);
+        const toastLiveExample = document.getElementById('errorToast');
+        const toast = new bootstrap.Toast(toastLiveExample);
+        toast.show();
+    }
+
 }

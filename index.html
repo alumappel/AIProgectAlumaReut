@@ -69,7 +69,7 @@
 </head>
 
 <body>
-
+    <!-- חלק ראשי  -->
     <body class="fullscreen">
         <div class="container">
             <div class="row justify-content-center">
@@ -91,10 +91,12 @@
                         </div>
                         <div class="col col-4">
                             <button class="btn btn-outline-dark w-100" type="button" id="tableBtn">
-                               צפייה באימונים קודמים
+                                צפייה באימונים קודמים
                             </button>
                         </div>
 
+
+                        <!-- חלק תרגול  -->
                     </div>
                     <div class="row justify-content-start d-none" id="StartBtn">
                         <div class="col col-3">
@@ -118,7 +120,7 @@
                         </div>
                     </div>
 
-
+                    <!--  מידי חלק משוב  -->
                     <div class="row justify-content-between d-none" id="feedback">
                         <div id="colVol" class="col  greycol d-none">
                             <h2>ווליום</h2>
@@ -152,9 +154,9 @@
                             </div>
                         </div>
                     </div>
-
+                    <!-- כפתור עצירת תרגול  -->
                     <div class="row justify-content-center d-none" id="stopBtnRow">
-                        <button class="btn btn-dark btn-lg btn-block d-none" type="button" id="StopBtn">סיום</button>                       
+                        <button class="btn btn-dark btn-lg btn-block d-none" type="button" id="StopBtn">סיום</button>
                     </div>
 
 
@@ -162,7 +164,7 @@
 
 
 
-
+                    <!-- חלק משוב מסכם -->
                     <div id="EndTxt" class="d-none">
                         <p>
                             כל הכבוד! <br>
@@ -172,7 +174,7 @@
                     </div>
 
                     <div id="EndRow" class="row justify-content-between d-none">
-                        <div id="colVolEnd" class="col just-border d-none">
+                        <div id="colVolEnd" class="col just-border d-none ">
                             <h2>ווליום</h2>
                             <div id="VolChart" class="d-flex justify-content-center align-items-center"></div>
                             <p>
@@ -198,12 +200,12 @@
                                 <span id="FrameNum"></span>
                                 דגימות
                             </p>
-                        </div>        
-                    </div>              
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- טבלה -->
+            <!-- חלק צפייה ועריכה מתוך בסיס נתונים  -->
             <div class="table-responsive d-none" id="tableDiv">
                 <table class="table table-hover table-bordered caption-top">
                     <caption>פירוט אימונים - בלחיצה תוכלו לראות את תוצאות האימון</caption>
@@ -221,16 +223,19 @@
                     <tbody id="practicesTable" class="table-group-divider">
                     </tbody>
                 </table>
-            </div>            
-            
+            </div>
+
+            <!-- כפתור חזרה לעמוד הבית  -->
             <div class="row justify-content-center d-none" id="returnBtn">
-                <div class="col col-4">                
-                    <button class="btn btn btn-outline-dark w-100" type="button" onClick="history.go(0);">חזרה לעמוד הבית</button>
+                <div class="col col-4">
+                    <button class="btn btn btn-outline-dark w-100" type="button" onClick="history.go(0);">חזרה לעמוד
+                        הבית</button>
                 </div>
             </div>
 
-            </div>
+        </div>
 
+        <!-- חלק מודלים ואישורי פעולה  -->
         <!-- מודל מחיקה -->
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -341,7 +346,8 @@
                         <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">
                             אל תשמרו את התרגול הזה
                         </button>
-                        <button type="button" id="modaladdBtn" onclick="addPractice()" data-bs-dismiss="modal" class="btn btn-outline-success">
+                        <button type="button" id="modaladdBtn" onclick="addPractice()" data-bs-dismiss="modal"
+                            class="btn btn-outline-success">
                             רעיון מעולה! שמרו את התרגול עבורי
                         </button>
                     </div>
@@ -381,8 +387,8 @@
 
 
 
-         <!-- מודל שגיאה, לא היה מספיק זמן לניתוח נתונים -->
-         <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <!-- מודל שגיאה, לא היה מספיק זמן לניתוח נתונים -->
+        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -391,12 +397,13 @@
                     </div>
                     <div class="modal-body">
                         נראה שהמערכת שלנו לא הספיקה לבצע שום ניתוח. </br>
-                        אנו מתנצלים על זמן טעינה ארוך, בעיה זו נמצאת בראש סדר העדיפויות הפיתוחי שלנו, ואנחנו מקווים שכבר בקרוב נוכל לשפר את החוויית התרגול שלך.
+                        אנו מתנצלים על זמן טעינה ארוך, בעיה זו נמצאת בראש סדר העדיפויות הפיתוחי שלנו, ואנחנו מקווים שכבר
+                        בקרוב נוכל לשפר את החוויית התרגול שלך.
                     </div>
                     <div class="modal-footer align-center">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             לסגירה והמתנה לתחילת התרגול
-                        </button>                        
+                        </button>
                     </div>
                 </div>
             </div>
@@ -437,7 +444,7 @@
 
         <div id="webcam-container"></div>
         <canvas id="canvas"></canvas> -->
-     <div id="label-container-frame" class="d-none"></div>
+    <div id="label-container-frame" class="d-none"></div>
     <div id="label-container-monotony" class="d-none"></div>
     <meter id="volume-meter" value="0" max="0.316" high="0.177" low="0.03" optimum="0.1" class="d-none"></meter>
     <!-- ממיר דציבלים לאמפיליטודות    https://www.silisoftware.com/tools/db.php -->

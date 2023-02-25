@@ -83,7 +83,20 @@
                         <br>
                         שימו לב: ניתן לבדוק את כל המדדים במקביל או מדדים אחדים לפי בחירתכם.
                     </p>
-                    <div class="row justify-content-start" id="StartBtn">
+                    <div class="row justify-content-center" id="practiceortableBtn">
+                        <div class="col col-4">
+                            <button class="btn btn btn-outline-dark w-100" type="button" id="practiceBtn">
+                                התחלת תרגול
+                            </button>
+                        </div>
+                        <div class="col col-4">
+                            <button class="btn btn-outline-dark w-100" type="button" id="tableBtn">
+                               צפייה באימונים קודמים
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-start d-none" id="StartBtn">
                         <div class="col col-3">
                             <button class="btn btn btn-outline-dark w-100" type="button" id="VolBtn">בדיקת
                                 ווליום</button>
@@ -106,7 +119,7 @@
                     </div>
 
 
-                    <div class="row justify-content-between" id="feedback">
+                    <div class="row justify-content-between d-none" id="feedback">
                         <div id="colVol" class="col  greycol d-none">
                             <h2>ווליום</h2>
                             <div id="ansVol" class="d-flex justify-content-center align-items-center feedbacksqwer">
@@ -140,10 +153,8 @@
                         </div>
                     </div>
 
-                    <div class="row justify-content-center" id="stopBtnRow">
-                        <button class="btn btn-dark btn-lg btn-block d-none" type="button" id="StopBtn">סיום</button>
-                        <!-- data-bs-toggle="modal"
-                            data-bs-target="#addModal" -->
+                    <div class="row justify-content-center d-none" id="stopBtnRow">
+                        <button class="btn btn-dark btn-lg btn-block d-none" type="button" id="StopBtn">סיום</button>                       
                     </div>
 
 
@@ -160,7 +171,7 @@
                         </p>
                     </div>
 
-                    <div id="EndRow" class="row justify-content-between ">
+                    <div id="EndRow" class="row justify-content-between d-none">
                         <div id="colVolEnd" class="col just-border d-none">
                             <h2>ווליום</h2>
                             <div id="VolChart" class="d-flex justify-content-center align-items-center"></div>
@@ -187,44 +198,38 @@
                                 <span id="FrameNum"></span>
                                 דגימות
                             </p>
-                        </div>
-                        <div id="EndTxt" class="d-none">
-                            <p>
-                                כל הכבוד! <br>
-                                עכשיו, לאחר סיום הפרזנטציה, בואו נראה איך היו הביצועים שלך. <br><br>
-                                הגרפים מציגים באחוזים מהזמן הכולל של הפרזנטציה.
-                            </p>
-                        </div>
-
-                    </div>
+                        </div>        
+                    </div>              
                 </div>
             </div>
 
-            <!-- כפתור יוצר טבלה -->
-            <button id="APItester" onclick="getPractices()">שליפת הכל</button>
-
-
             <!-- טבלה -->
-            <div class="table-responsive">
-            <table class="table table-hover table-bordered caption-top">
-                <caption>פירוט אימונים - בלחיצה תוכלו לראות את תוצאות האימון</caption>
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col" class="noborder">שם האימון</th>
-                        <th scope="col" class="noborder"></th>
-                        <th scope="col">תאריך</th>
-                        <th scope="col">שעה</th>
-                        <th scope="col">אורך כולל</th>
-                        <th scope="col">מחיקה</th>
-                    </tr>
-                </thead>
-                <tbody id="practicesTable" class="table-group-divider">
-                </tbody>
-            </table>
-        </div>
+            <div class="table-responsive d-none" id="tableDiv">
+                <table class="table table-hover table-bordered caption-top">
+                    <caption>פירוט אימונים - בלחיצה תוכלו לראות את תוצאות האימון</caption>
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col" class="noborder">שם האימון</th>
+                            <th scope="col" class="noborder"></th>
+                            <th scope="col">תאריך</th>
+                            <th scope="col">שעה</th>
+                            <th scope="col">אורך כולל בדקות</th>
+                            <th scope="col">מחיקה</th>
+                        </tr>
+                    </thead>
+                    <tbody id="practicesTable" class="table-group-divider">
+                    </tbody>
+                </table>
+            </div>            
+            
+            <div class="row justify-content-center d-none" id="returnBtn">
+                <div class="col col-4">                
+                    <button class="btn btn btn-outline-dark w-100" type="button" onClick="history.go(0);">חזרה לעמוד הבית</button>
+                </div>
+            </div>
 
-        </div>
+            </div>
 
         <!-- מודל מחיקה -->
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">

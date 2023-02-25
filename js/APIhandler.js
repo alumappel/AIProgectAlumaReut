@@ -46,6 +46,10 @@ function showPractices(practices) {
         var date = new Date(practice.date)
         var dateStr = ("00" + date.getDate()).slice(-2) + "/" + ("00" + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear();
         var timeStr = ("00" + date.getHours()).slice(-2) + ":" + ("00" + date.getMinutes()).slice(-2);
+
+        //המרת אורך כולל
+        let seconds = Math.floor(practice.overall_length * 60);
+        let formattedTime = new Date(seconds * 1000).toISOString().substring(14, 19);
         //  עבור כל שאלה נבנה שורה בטבלה        
         const myHtml = `<tr>
             <th scope="row">${i}</th>
@@ -53,7 +57,7 @@ function showPractices(practices) {
             <td class="text-center noborder"><button type="button" class="btn btn-outline-dark"  onclick="transferIdtoEditModal(${practice.id})" data-bs-toggle="modal" data-bs-target="#editModal"><span class="bi bi-pen"></span></button></td>
             <td>${dateStr}</td>
             <td>${timeStr}</td>
-            <td>${practice.overall_length}</td>            
+            <td>${formattedTime}</td>            
             <td class="text-center" ><button id="deleteBtn" type="button" onclick="transferIdtoDeleteModal(${practice.id})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><span class="bi bi-trash3"></span></button></td>
             </tr>`
         //  נזריק את השאלה לטבלה

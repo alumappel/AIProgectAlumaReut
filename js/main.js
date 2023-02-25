@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     document.getElementById("MonBtn").addEventListener("click", startMon);
     document.getElementById("VolBtn").addEventListener("click", startVol);
     document.getElementById("StopBtn").addEventListener("click", stopAllProssing);
+    document.getElementById("practiceBtn").addEventListener("click", showPractice);
+    document.getElementById("tableBtn").addEventListener("click", showTable);
 
     //מהירות משוב   
     milSecForUpdate=5000;
@@ -13,6 +15,30 @@ document.addEventListener("DOMContentLoaded", function (event) {
     document.getElementById("FrqInputV").innerHTML=5;    
 
 });
+
+//הצגת איזור תרגול
+function showPractice() {
+    document.getElementById("practiceBtn").removeEventListener("click", showPractice);
+    document.getElementById("practiceortableBtn").classList.add("d-none");
+    document.getElementById("StartBtn").classList.remove('d-none');
+    document.getElementById("feedback").classList.remove('d-none');
+    document.getElementById("stopBtnRow").classList.remove('d-none');
+    document.getElementById("EndRow").classList.remove('d-none');
+    document.getElementById("returnBtn").classList.remove('d-none');
+}
+
+//הצגת טבלה
+//שליפה של הכל
+function showTable(){
+    document.getElementById("tableBtn").removeEventListener("click", showTable);
+    document.getElementById("practiceortableBtn").classList.add("d-none");
+    document.getElementById("tableDiv").classList.remove('d-none');
+    document.getElementById("returnBtn").classList.remove('d-none');
+    getPractices();
+}
+
+
+
 
 //מהירות משוב
 function frqChange(){

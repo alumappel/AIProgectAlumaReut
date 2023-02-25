@@ -71,7 +71,7 @@ async function updateVisualizationV() {
   const box = document.getElementById("ansVol");
   if (volTenSecAVGArry[volTenSecAVGArry.length - 1] <= 0.032) {
     //חלש
-    console.log("חלש");
+    //console.log("חלש");
     span.innerHTML = "הדיבור שלך חלש מדי - נסי להגביר";
 
     if (box.classList.contains('feedbackgood')) {
@@ -83,7 +83,7 @@ async function updateVisualizationV() {
   }
   else if (volTenSecAVGArry[volTenSecAVGArry.length - 1] >= 0.07) {
     //חזק
-    console.log("חזק");
+    //console.log("חזק");
     span.innerHTML = "הדיבור שלך חזק מדי - נסי להחליש";
 
     if (box.classList.contains('feedbackgood')) {
@@ -95,7 +95,7 @@ async function updateVisualizationV() {
   }
   else {
     //הודעה חיובית
-    console.log("מעולה");
+    //console.log("מעולה");
     span.innerHTML = "מעולה!";
 
     if (box.classList.contains('feedbackbad')) {
@@ -118,22 +118,28 @@ function stopLoopV() {
 
 
 //שמירת נתונים בסיום
-let overAllTimeMinV;
-let presentegGoodV;
-let presentegLowV;
-let presentegHighV;
+let overAllTimeMinV=0;
+let presentegGoodV=0;
+let presentegLowV=0;
+let presentegHighV=0;
+let avgV=0;
 function creatEndVarsV(){
   overAllTimeMinV = volTenSecAVGArry.length * (milSecForUpdate/1000) / 60;
   let lowCount = 0;
   let highCount = 0;
+  let loopCount = 0;
+  let sumCount = 0;
   for (let i = 0; i < volTenSecAVGArry.length; i++) {
       if (volTenSecAVGArry[i] < 0.032) {
           lowCount++;
       } else if (volTenSecAVGArry[i] > 0.07) {
           highCount++;
       }
+      loopCount++;
+      sumCount+=volTenSecAVGArry[i]
   }
   presentegLowV = (lowCount / volTenSecAVGArry.length) * 100;
   presentegHighV = (highCount / volTenSecAVGArry.length) * 100;
   presentegGoodV = 100 - presentegLowV - presentegHighV;  
+  avgV=sumCount/loopCount;
 }

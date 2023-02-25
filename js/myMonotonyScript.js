@@ -99,7 +99,7 @@ async function updateVisualizationM() {
     const box = document.getElementById("ansMon");
     if (VarietyTenSecAVGArry[VarietyTenSecAVGArry.length - 1] >= 0.8) {
         //הודעה חיובית
-        console.log("מעולה");
+        //console.log("מעולה");
         span.innerHTML = "מעולה!";
 
         if (box.classList.contains('feedbackbad')) {
@@ -111,7 +111,7 @@ async function updateVisualizationM() {
     }
     else {
         //הודעה קרוב מדי
-        console.log("מונוטוני");
+        //console.log("מונוטוני");
         span.innerHTML = "הדיבור שלך מונוטוני מדי - נסי לגוון";
 
         if (box.classList.contains('feedbackgood')) {
@@ -135,9 +135,9 @@ function stopLoopM() {
 
 
 //שמירת נתונים בסיום
-let overAllTimeMinM;
-let presentegGoodM;
-let presentegBadM;
+let overAllTimeMinM=0;
+let presentegGoodM=0;
+let presentegBadM=0;
 
 function creatEndVarsM() {
     overAllTimeMinM = monotonyTenSecAVGArry.length * (milSecForUpdate/1000) / 60;

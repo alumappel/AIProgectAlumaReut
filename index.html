@@ -137,7 +137,8 @@
                     </div>
 
                     <div class="row justify-content-center" id="stopBtnRow">
-                        <button class="btn btn-dark btn-lg btn-block d-none" type="button" id="StopBtn">סיום</button>
+                        <button class="btn btn-dark btn-lg btn-block d-none" data-bs-toggle="modal"
+                            data-bs-target="#addModal" type="button" id="StopBtn">סיום</button>
                     </div>
 
 
@@ -182,19 +183,24 @@
                                 דגימות
                             </p>
                         </div>
+                        <div id="EndTxt" class="d-none">
+                            <p>
+                                כל הכבוד! <br>
+                                עכשיו, לאחר סיום הפרזנטציה, בואו נראה איך היו הביצועים שלך. <br><br>
+                                הגרפים מציגים באחוזים מהזמן הכולל של הפרזנטציה.
+                            </p>
+                        </div>
 
                     </div>
-
-
                 </div>
             </div>
 
-            //כפתור יוצר טבלה
+            <!-- כפתור יוצר טבלה -->
             <button id="APItester" onclick="getPractices()">שליפת הכל</button>
 
 
             <!-- טבלה -->
-            <div class="table-responsive"></div>
+            <div class="table-responsive">
             <table class="table table-hover table-bordered caption-top">
                 <caption>פירוט אימונים - בלחיצה תוכלו לראות את תוצאות האימון</caption>
                 <thead class="table-dark">
@@ -211,6 +217,8 @@
                 <tbody id="practicesTable" class="table-group-divider">
                 </tbody>
             </table>
+        </div>
+
         </div>
 
         <!-- מודל מחיקה -->
@@ -241,7 +249,7 @@
                     <div class="toast-body">
                         האימון נמחק בהצלחה
                     </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    <button type="button" class="btn-close  me-2 m-auto" data-bs-dismiss="toast"
                         aria-label="Close"></button>
                 </div>
             </div>
@@ -286,7 +294,58 @@
                     <div class="toast-body">
                         שם האימון עודכן בהצלחה
                     </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    <button type="button" class="btn-close  me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- מודל הוספה -->
+        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">עריכת שם אימון</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>כל הכבוד על ביצוע התרגול! </br>
+                            רגע לפני שנעביר אותך לסיכום התרגול, אנחנו ממליצים לשמור את התרגולים שלך כך שיהיו זמינים
+                            עבורך וכדי שאנחנו נוכל להתאים בצורה טובה יותר את האימון בדיוק לצרכים שלך!
+                            </br>
+                            כמובן שתמיד אפשר למחוק את התרגול אחר כך.
+                        </p>
+                        <label for="nameInput" class="form-label">כדי לשמור תרגול עליך לתת לו שם:</label>
+                        <input class="form-control" list="datalistOptions" id="nameInput2"
+                            placeholder="פרזנטציה בנושא להיות פרזנטור מעולה">
+                        <datalist id="datalistOptions">
+                            <option value="דיפוזיה במוליכים למחיצה">
+                            <option value="תרגול שימוש בקול">
+                            <option value="הכל על ביטקיון">
+                            <option value="תרגול שני של תנועות ידיים">
+                            <option value="התנסות ראשונית">
+                        </datalist>
+                    </div>
+                    <div class="modal-footer align-center">
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">
+                            אל תשמרו את התרגול הזה
+                        </button>
+                        <button type="button" id="modaladdBtn" onclick="addPractice()" data-bs-dismiss="modal" class="btn btn-outline-success">
+                            רעיון מעולה! שמרו את התרגול עבורי
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- הודעה -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3 text-bg-primary">
+            <div id="addToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        האימון נשמר בהצלחה!
+                    </div>
+                    <button type="button" class="btn-close  me-2 m-auto" data-bs-dismiss="toast"
                         aria-label="Close"></button>
                 </div>
             </div>
@@ -295,7 +354,7 @@
 
 
 
-        
+
 
         <!-- הודעת שגיאה-->
         <div class="toast-container position-fixed bottom-0 end-0 p-3 text-bg-primary">
@@ -304,7 +363,7 @@
                     <div class="toast-body">
                         אוקי, לא להילחץ... אבל יש שגיאה. ננסה שוב?
                     </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                         aria-label="Close"></button>
                 </div>
             </div>
@@ -345,7 +404,7 @@
 
         <div id="webcam-container"></div>
         <canvas id="canvas"></canvas> -->
-    <!-- <div id="label-container-frame" class="d-none"></div>
+     <div id="label-container-frame" class="d-none"></div>
     <div id="label-container-monotony" class="d-none"></div>
-    <meter id="volume-meter" value="0" max="0.316" high="0.177" low="0.03" optimum="0.1" class="d-none"></meter> -->
+    <meter id="volume-meter" value="0" max="0.316" high="0.177" low="0.03" optimum="0.1" class="d-none"></meter>
     <!-- ממיר דציבלים לאמפיליטודות    https://www.silisoftware.com/tools/db.php -->

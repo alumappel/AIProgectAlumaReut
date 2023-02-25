@@ -101,7 +101,7 @@ async function deletPractice(id) {
 
 //העברת מידע למודל עדכון
 function transferIdtoEditModal(id) {
-    console.log("editPractice" + id);
+    //console.log("editPractice" + id);
     document.getElementById("modalEditBtn").addEventListener("click", function () {
         editPractice(id);
     });
@@ -173,3 +173,85 @@ async function editPractice(id) {
     }
 
 }
+
+//פונקציה שקוראת בלחיצה על כפתור הוספה לבסיס נתונים
+async function addPractice() {
+    let overallLength = 0;
+    if (overAllTimeMinF > overallLength) {
+        overallLength = overAllTimeMinF;
+    }
+    if (overAllTimeMinM > overallLength) {
+        overallLength = overAllTimeMinM;
+    }
+    if (overAllTimeMinV > overallLength) {
+        overallLength = overAllTimeMinV;
+    }    
+    const newName = document.getElementById("nameInput2").value;
+    const date = new Date().toISOString();
+    //console.log("date: "+date + "date type" + typeof date);
+
+    //הזנת ערכים לאובייקט
+    const practiceObj = {
+        "id": 0,
+        "practice_name": newName,
+        "date": date,
+        "overall_length": overallLength,
+        "locationInFrame": {
+            "id": 0,
+            "measurement_time": overAllTimeMinF,
+            "good_performance_time_percent": presentegGoodF,
+            "out_of_frame_performance_time_percent": 0,
+            "too_close_performance_time_percent": 0,
+            "too_far_performance_time_percent": 0,
+            "practices_Id": 0
+        },
+        "pitch": {
+            "id": 0,
+            "measurement_time": overAllTimeMinM,
+            "good_performance_time_percent": presentegBadM,
+            "practices_Id": 0
+        },
+        "volume": {
+            "id": 0,
+            "measurement_time": overAllTimeMinV,
+            "volume_avg": avgV,
+            "good_performance_time_percent": presentegGoodV,
+            "too_loud_performance_time_percent": presentegHighV,
+            "too_quiet_performance_time_percent": presentegLowV,
+            "practices_Id": 0
+        }
+    }
+    //הדפסת האוביקט של השאלה לצורך בדיקה
+    console.log(practiceObj);
+    //פה נבצע את הקריאה לקונטרולר
+    
+    const url = `${controllerUrl}InsertPractice`;
+    // שמירת הפרמטרים לשליפה: סוג השליפה
+    const params = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(practiceObj)
+    }
+    // ביצוע הקריאה לשרת, נשלח את הנתיב והפרמטרים שהגדרנו
+    const response = await fetch(url, params);
+    // במידה והקריאה הצליחה
+    if (response.ok) {
+        //הודעה אישור
+        const toastLiveExample = document.getElementById('editToast');
+        const toast = new bootstrap.Toast(toastLiveExample);
+        toast.show();
+    } else {
+        // נציג את השגיאות במידה והערך לא תקין
+        const errors = await response.text();
+        console.log(errors);
+        const toastLiveExample = document.getElementById('errorToast');
+        const toast = new bootstrap.Toast(toastLiveExample);
+        toast.show();
+    }
+
+
+}
+
+

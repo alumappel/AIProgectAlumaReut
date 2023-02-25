@@ -142,7 +142,7 @@ async function updateVisualization() {
     const box = document.getElementById("ansFrame");
     if (inFrameHalfMinAVGArry[inFrameHalfMinAVGArry.length - 1] >= 0.8) {
         //הודעה חיובית
-        console.log("מעולה");
+        //console.log("מעולה");
         span.innerHTML = "מעולה!";
 
         if (box.classList.contains('feedbackbad')) {
@@ -154,7 +154,7 @@ async function updateVisualization() {
     }
     else if (tooCloseHalfMinAVGArry[tooCloseHalfMinAVGArry.length - 1] >= 0.8) {
         //הודעה קרוב מדי
-        console.log("קרוב");
+       //console.log("קרוב");
         span.innerHTML = "כדאי להתרחק מהמלצמה";
 
         if (box.classList.contains('feedbackgood')) {
@@ -166,7 +166,7 @@ async function updateVisualization() {
     }
     else if (tooFarHalfMinAVGArry[tooFarHalfMinAVGArry.length - 1] >= 0.8) {
         //הודעה רחוק מדי
-        console.log("רחוק");
+        //console.log("רחוק");
         span.innerHTML = " כדאי להתקרב למצלמה";
 
         if (box.classList.contains('feedbackgood')) {
@@ -178,7 +178,7 @@ async function updateVisualization() {
     }
     else {
         //הודעה שלילית גנרית
-        console.log("רע");
+        //console.log("רע");
         span.innerHTML = "מיקום לא מושלם - נסי לזוז קצת";
 
         if (box.classList.contains('feedbackgood')) {
@@ -194,7 +194,7 @@ async function updateVisualization() {
 
 //פונקציה לעצירת החישוב
 function stopLoopF() {  
-    console.log("stop");  
+    //console.log("stop");  
     webcam.stop();
     isPredicting = false;
     model.dispose();
@@ -203,9 +203,9 @@ function stopLoopF() {
 
 
 //שמירת נתונים בסיום
-let overAllTimeMinF;
-let presentegGoodF;
-let presentegBadF;
+let overAllTimeMinF=0;
+let presentegGoodF=0;
+let presentegBadF=0;
 
 function creatEndVarsF() {
     overAllTimeMinF = inFrameHalfMinAVGArry.length * (milSecForUpdate/1000) / 60;

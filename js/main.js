@@ -62,9 +62,11 @@ function startVol() {
 }
 
 
-function stopAllProssing() {
-    document.getElementById("StopBtn").removeEventListener("click", stopAllProssing);
-    if (isPredicting) {
+function stopAllProssing() {    
+    // בדיקה שאכן משהו נמדד
+    if (staticTempArry.length > 0 || staticTempArryM.length > 0 || staticTempArryV.length > 0) {
+      document.getElementById("StopBtn").removeEventListener("click", stopAllProssing);
+        if (isPredicting) {
         stopLoopF();
         document.getElementById("colFrameEnd").classList.remove("d-none");
         drawChartFrame();
@@ -83,8 +85,16 @@ function stopAllProssing() {
         document.getElementById("VolNum").innerHTML=predictionNumV;
         
     }
-
-    showEnd();
+         showEnd();
+         //מודל שמירה
+         let modal = document.getElementById('addModal');
+         $(modal).modal('show');
+    }
+    // אם שום דבר לא נמדד בפועל
+    else {
+        let modal = document.getElementById('errorModal');
+         $(modal).modal('show');
+    }
 }
 
 

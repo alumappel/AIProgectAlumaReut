@@ -61,6 +61,10 @@
         google.charts.load('current', { 'packages': ['corechart'] });      
     </script>
 
+    <!-- JQuery Library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 
 </head>
 
@@ -137,8 +141,9 @@
                     </div>
 
                     <div class="row justify-content-center" id="stopBtnRow">
-                        <button class="btn btn-dark btn-lg btn-block d-none" data-bs-toggle="modal"
-                            data-bs-target="#addModal" type="button" id="StopBtn">סיום</button>
+                        <button class="btn btn-dark btn-lg btn-block d-none" type="button" id="StopBtn">סיום</button>
+                        <!-- data-bs-toggle="modal"
+                            data-bs-target="#addModal" -->
                     </div>
 
 
@@ -365,6 +370,29 @@
                     </div>
                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                         aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+
+
+
+         <!-- מודל שגיאה, לא היה מספיק זמן לניתוח נתונים -->
+         <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">דיס איז אוקוורד</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        נראה שהמערכת שלנו לא הספיקה לבצע שום ניתוח. </br>
+                        אנו מתנצלים על זמן טעינה ארוך, בעיה זו נמצאת בראש סדר העדיפויות הפיתוחי שלנו, ואנחנו מקווים שכבר בקרוב נוכל לשפר את החוויית התרגול שלך.
+                    </div>
+                    <div class="modal-footer align-center">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            לסגירה והמתנה לתחילת התרגול
+                        </button>                        
+                    </div>
                 </div>
             </div>
         </div>

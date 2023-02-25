@@ -175,7 +175,8 @@ async function editPractice(id) {
 }
 
 //פונקציה שקוראת בלחיצה על כפתור הוספה לבסיס נתונים
-async function addPractice() {
+async function addPractice() {   
+    //בדיקת זמן התרגול המירבי 
     let overallLength = 0;
     if (overAllTimeMinF > overallLength) {
         overallLength = overAllTimeMinF;
@@ -185,10 +186,15 @@ async function addPractice() {
     }
     if (overAllTimeMinV > overallLength) {
         overallLength = overAllTimeMinV;
-    }    
-    const newName = document.getElementById("nameInput2").value;
-    const date = new Date().toISOString();
-    //console.log("date: "+date + "date type" + typeof date);
+    }  
+    //שמירת שם מהתיבה  
+    let newName = document.getElementById("nameInput2").value;
+    //ערך דיפולטיבי
+    if(newName.length===0){
+        newName="אימון ללא שם";
+    }
+    //שמירת תאריך
+    const date = new Date().toISOString();    
 
     //הזנת ערכים לאובייקט
     const practiceObj = {

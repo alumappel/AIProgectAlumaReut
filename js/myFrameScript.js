@@ -75,20 +75,7 @@ async function loop(timestamp) {
         }
         startTime = performance.now();// Reset time
         updateVisualization();
-    }
-    //לחישוב כמות הפריימים
-    //frameCount++;
-    // If one second has passed
-    /* if (performance.now() - startTime >= 1000) {
-        // Calculate the FPS
-        const fps = frameCount / ((performance.now() - startTime) / 1000);
-
-        // Reset the frame count and start time
-        frameCount = 0;
-        startTime = performance.now();
-
-        console.log(`FPS: ${fps}`);
-    } */
+    }   
 }
 
 

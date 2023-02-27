@@ -1,6 +1,7 @@
+// משתנה לקביעת זמן למתן משוב מידי
 let milSecForUpdate;
 
-
+// הוספת מאזינים בטעינת עמוד
 document.addEventListener("DOMContentLoaded", function (event) {
     document.getElementById("FramBtn").addEventListener("click", startFrame);
     document.getElementById("MonBtn").addEventListener("click", startMon);
@@ -47,6 +48,7 @@ function frqChange(){
  document.getElementById("FrqInputV").innerHTML=input; 
 }
 
+//התחלת בדיקת מיקום בפריים
 function startFrame() {
     document.getElementById("FramBtn").removeEventListener("click", startFrame);
     isPredicting = true;
@@ -61,6 +63,8 @@ function startFrame() {
     document.getElementById("FramBtn").classList.add("d-none");
 }
 
+
+///התחלת בדיקת דיבור מונוטוני
 function startMon() {
     document.getElementById("MonBtn").removeEventListener("click", startMon);
     isListening = true;
@@ -74,6 +78,8 @@ function startMon() {
     document.getElementById("MonBtn").classList.add("d-none");
 }
 
+
+//התחלת בדיקה ווליום
 function startVol() {
     document.getElementById("FramBtn").removeEventListener("click", startVol);
     isRunning = true;
@@ -88,6 +94,7 @@ function startVol() {
 }
 
 
+//סיום ניתוח
 function stopAllProssing() {    
     // בדיקה שאכן משהו נמדד
     if (staticTempArry.length > 0 || staticTempArryM.length > 0 || staticTempArryV.length > 0) {
@@ -124,6 +131,7 @@ function stopAllProssing() {
 }
 
 
+//הצגת משוב מסכם
 function showEnd() {
     //הסתרת 
     document.getElementById("OpenTxt").classList.add("d-none");
@@ -136,74 +144,11 @@ function showEnd() {
 
 }
 
-function drawChartVol() {
-    // Create the data table.
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', 'ביצוע');
-    data.addColumn('number', 'אחוז מהזמן');
-    data.addRows([
-        ['בדיוק במידה', presentegGoodV],
-        ['חלש מדי', presentegLowV],
-        ['חזק מדי', presentegHighV]
-    ]);
-
-    // Set chart options
-    var colors = ['#a6cee3', '#9a69b2', '#fb99e6', '#fdbf6f', '#cbf24d', '#b69200'];
-
-    var options = {
-        legend: { position: 'labeled', textStyle: { color: 'black', fontName: 'Rubik', fontSize: 14, bold: true }, strokeColor: { color: 'black' } },
-        colors: colors,
-        backgroundColor: 'none',
-        fontName: 'Rubik',
-        pieSliceText: 'none',
-        tooltip: { text: 'percentage' },
-    };
-
-    // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.PieChart(document.getElementById('VolChart'));
-    chart.draw(data, options);
-}
 
 
-function drawChartMon() {
-        // Create the data table.
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', 'ביצוע');
-    data.addColumn('number', 'אחוז מהזמן');
-    data.addRows([
-        ['מגוון',  presentegGoodM],
-        ['מונוטוני', presentegBadM]
-    ]);
-
-    // Set chart options
-    var colors = ['#a6cee3', '#9a69b2', '#fb99e6', '#fdbf6f', '#cbf24d', '#b69200'];
-
-    var options = {
-        legend: { position: 'labeled', textStyle: { color: 'black', fontName: 'Rubik', fontSize: 14, bold: true }, strokeColor: { color: 'black' } },
-        colors: colors,
-        backgroundColor: 'none',
-        fontName: 'Rubik',
-        pieSliceText: 'none',
-        tooltip: { text: 'percentage' },
-    };
-
-    // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.PieChart(document.getElementById('MonChart'));
-    chart.draw(data, options);
-}
 
 
-function drawChartFrame() {
-    // Create the data table.
-var data = new google.visualization.DataTable();
-data.addColumn('string', 'ביצוע');
-data.addColumn('number', 'אחוז מהזמן');
-data.addRows([
-    ['מיקום נכון בפריים',  presentegGoodF],
-    ['מיקום לא נכן בפריים', presentegBadF]
-]);
-
-// Set chart options
+///////////////////////////// משתנים ליצירת גרפים/////////////////////////////////////////////////////
 var colors = ['#a6cee3', '#9a69b2', '#fb99e6', '#fdbf6f', '#cbf24d', '#b69200'];
 
 var options = {
@@ -213,7 +158,56 @@ var options = {
     fontName: 'Rubik',
     pieSliceText: 'none',
     tooltip: { text: 'percentage' },
+    'width':'auto', 
+    'height':'auto'
 };
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//יצירת גרף ווליום
+function drawChartVol() {
+    // Create the data table.
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'ביצוע');
+    data.addColumn('number', 'אחוז מהזמן');
+    data.addRows([
+        ['בדיוק במידה', presentegGoodV],
+        ['חלש מדי', presentegLowV],
+        ['חזק מדי', presentegHighV]
+    ]);  
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.PieChart(document.getElementById('VolChart'));
+    chart.draw(data, options);
+}
+
+//יצירת גרף מונטוניות
+function drawChartMon() {
+        // Create the data table.
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'ביצוע');
+    data.addColumn('number', 'אחוז מהזמן');
+    data.addRows([
+        ['מגוון',  presentegGoodM],
+        ['מונוטוני', presentegBadM]
+    ]);   
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.PieChart(document.getElementById('MonChart'));
+    chart.draw(data, options);
+}
+
+//יצירת גרף מיקום בפריים
+function drawChartFrame() {
+    // Create the data table.
+var data = new google.visualization.DataTable();
+data.addColumn('string', 'ביצוע');
+data.addColumn('number', 'אחוז מהזמן');
+data.addRows([
+    ['מיקום נכון בפריים',  presentegGoodF],
+    ['מיקום לא נכן בפריים', presentegBadF]
+]);
 
 // Instantiate and draw our chart, passing in some options.
 var chart = new google.visualization.PieChart(document.getElementById('FrameChart'));

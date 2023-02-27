@@ -13,6 +13,7 @@ let isRunning;
 let animationId;
 let intervalId;
 
+//התחלת ניתוח
 async function startDB() {
   const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
   const audioContext = new AudioContext();
@@ -109,7 +110,7 @@ async function updateVisualizationV() {
 }
 
 
-
+//הפסקת החישוב
 function stopLoopV() {
   isRunning = false;
   clearInterval(intervalId);

@@ -8,7 +8,7 @@ const URL = "https://teachablemachine.withgoogle.com/models/ZnR7rgHeL/";
 let isListening;
 let listenIntervalId;
 
-
+// יצירת המודל
 async function createModel() {
     const checkpointURL = URL + "model.json"; // model topology
     const metadataURL = URL + "metadata.json"; // model metadata
@@ -36,7 +36,7 @@ let predictionNumM=0;
 
 
 
-
+// תחילת ניתוח
 let recognizer;
 async function initMonotony() {
     recognizer = await createModel();
@@ -123,7 +123,7 @@ async function updateVisualizationM() {
     }
 }
 
-
+//הפסקת ניתוח
 function stopLoopM() {
     recognizer.stopListening();
     isListening = false;
